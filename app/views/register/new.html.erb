@@ -1,28 +1,6 @@
-<%= form_tag '/register', method: :post do %>
+<h2>Register a New User</h2>
 
-  <%= label_tag :name %>
-  <%= text_field_tag :name %>
-
-  <%= label_tag :address %>
-  <%= text_field_tag :address %>
-
-  <%= label_tag :city %>
-  <%= text_field_tag :city %>
-
-  <%= label_tag :state %>
-  <%= text_field_tag :state %>
-
-  <%= label_tag :zip %>
-  <%= text_field_tag :zip %>
-
-  <%= label_tag :email %>
-  <%= text_field_tag :email %>
-
-  <%= label_tag :password %>
-  <%= text_field_tag :password %>
-
-  <%= label_tag :confirm_pass %>
-  <%= text_field_tag :confirm_pass %>
-
-  <%= submit_tag 'Submit' %>
-<% end %>
+<%= render partial: 'form', locals: { path: "/register",
+                                      method: :post,
+                                      button_name: "Submit",
+                                      user: @user } %>
