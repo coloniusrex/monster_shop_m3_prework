@@ -10,6 +10,7 @@ describe "Log in" do
     click_on 'Login'
 
     expect(current_path).to eq('/profile')
+    expect(page).to have_content("You have successfully logged in.")
   end
 
   it "can log in as a merchant user" do
@@ -20,6 +21,7 @@ describe "Log in" do
 
     click_on 'Login'
 
+    expect(page).to have_content("You have successfully logged in.")
     expect(current_path).to eq('/merchant/dashboard')
   end
 
@@ -30,7 +32,8 @@ describe "Log in" do
     fill_in :password, with: user.password
 
     click_on 'Login'
-
+    
+    expect(page).to have_content("You have successfully logged in.")
     expect(current_path).to eq('/admin/dashboard')
   end
 

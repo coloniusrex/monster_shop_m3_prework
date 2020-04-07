@@ -19,4 +19,8 @@ class ApplicationController < ActionController::Base
     current_user && (current_user.role == 2)
   end
 
+  def current_admin?
+    current_user && (current_user.role == 3)
+  end
+
 end
