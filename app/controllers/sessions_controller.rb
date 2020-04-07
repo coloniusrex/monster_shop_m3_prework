@@ -35,7 +35,9 @@ class SessionsController < ApplicationController
   end
 
   def logout
-    binding.pry
+    flash[:notice] = "You're logged out"
+    redirect_to '/'
+    session.clear
   end
 
 end
