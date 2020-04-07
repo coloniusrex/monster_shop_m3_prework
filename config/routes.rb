@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   post "/register", to: "register#create"
 
   get "/profile", to: "profiles#show"
+
   namespace :merchant do
     get '/dashboard', to: "dashboard#show"
   end
@@ -49,4 +50,6 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/dashboard', to: "dashboard#show"
   end
+
+  get "/logout", to: "sessions#logout"
 end

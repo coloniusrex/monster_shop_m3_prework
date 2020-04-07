@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+
     if current_user.role == 1
       flash[:notice] = "You're already logged in."
       redirect_to '/profile'
@@ -10,10 +11,12 @@ class SessionsController < ApplicationController
       flash[:notice] = "You're already logged in."
       redirect_to '/admin/dashboard'
     end
+
   end
 
   def create
     user = User.find_by(email: params[:email])
+
     if user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:success] = 'You have successfully logged in.'
@@ -28,5 +31,11 @@ class SessionsController < ApplicationController
       flash[:notice] = "Your credentials are incorrect."
       render :new
     end
+
   end
+
+  def logout
+    binding.pry
+  end
+
 end
