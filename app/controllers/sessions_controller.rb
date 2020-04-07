@@ -1,6 +1,15 @@
 class SessionsController < ApplicationController
   def new
-
+    if current_user.role == 1
+      flash[:notice] = "You're already logged in."
+      redirect_to '/profile'
+    elsif current_user.role == 2
+      flash[:notice] = "You're already logged in."
+      redirect_to '/merchant/dashboard'
+    elsif current_user.role == 3
+      flash[:notice] = "You're already logged in."
+      redirect_to '/admin/dashboard'
+    end
   end
 
   def create
