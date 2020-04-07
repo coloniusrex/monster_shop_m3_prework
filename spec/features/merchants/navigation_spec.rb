@@ -13,7 +13,6 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_no_link('Log In')
         expect(page).to have_no_link('Register')
         expect(page).to have_content("Logged in as: #{user.name}")
-        save_and_open_page
       end
     end
   end
