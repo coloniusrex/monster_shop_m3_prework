@@ -28,6 +28,8 @@ RSpec.describe "Log out" do
     expect(page).to have_content("You're logged out")
 
     within 'nav' do
+      expect(page).to have_content("Log-In")
+      expect(page).to have_content("Register")
       expect(page).to have_content("Cart: 0")
     end
   end
