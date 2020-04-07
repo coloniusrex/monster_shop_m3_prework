@@ -47,5 +47,19 @@ describe "Log in" do
     expect(page).to have_content("Your credentials are incorrect.")
   end
 
+  it "I will be redirected if I am logged in" do
+    user = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
+    visit '/login'
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+
+    click_on 'Login'
+
+    visit '/login'
+    expect(page).to have_content("You're already logged in.")
+    expect(current_path).to eq('/admin/dashboard')
+
+  end
+
 
 end
