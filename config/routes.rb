@@ -36,9 +36,13 @@ Rails.application.routes.draw do
   get "/orders/:id", to: "orders#show"
 
   get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
 
   get "/register", to: "register#new"
   post "/register", to: "register#create"
 
   get "/profile", to: "profiles#show"
+  namespace :merchant do
+    get '/dashboard', to: "dashboard#show"
+  end
 end

@@ -15,4 +15,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_merchant?
+    current_user && (current_user.role == 2)
+  end
+
 end
