@@ -33,5 +33,15 @@ RSpec.describe 'Site Navigation' do
       end
 
     end
+
+    it "I can see a register link on all pages" do
+      visit "/merchants"
+
+      within("nav") do
+        click_link "Register"
+      end
+
+      expect(current_path).to eq("/register")
+    end
   end
 end

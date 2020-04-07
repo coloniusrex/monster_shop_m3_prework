@@ -1,0 +1,6 @@
+<h2>Register a New User</h2>
+
+<%= render partial: 'form', locals: { path: "/register",
+                                      method: :post,
+                                      button_name: "Submit",
+                                      user: params } %>
