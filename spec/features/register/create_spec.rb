@@ -16,7 +16,15 @@ describe "registration" do
 
     click_on "Submit"
 
+
     expect(current_path).to eq("/profile")
+
+    within 'nav' do
+      expect(page).to have_link('Profile')
+      expect(page).to have_link('Logout')
+      expect(page).to have_no_link('Merchant Dashboard')
+      expect(page).to have_no_link('Admin Dashboard')
+    end
     expect(page).to have_content("Your account has been created.")
   end
 
