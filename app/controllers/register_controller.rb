@@ -16,7 +16,7 @@ class RegisterController < ApplicationController
       redirect_to "/profile"
     else
       flash[:error] = "Unable to create account: Required information missing."
-      redirect_to request.referer
+      render :new
     end
   end
 
