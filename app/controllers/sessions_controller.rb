@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       elsif user.role == 2
         redirect_to '/merchant/dashboard'
       elsif user.role == 3
-        redirect_to '/admin'
+        redirect_to '/admin/dashboard'
       end
     else
       flash[:notice] = "Your credentials are incorrect."
