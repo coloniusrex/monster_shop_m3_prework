@@ -1,0 +1,9 @@
+<h2>Profile Page</h2>
+
+<section class="user-info">
+  <h4>User Info</h4>
+  Name: <%= current_user.name %><br>
+  Address: <%= current_user.address %><br>
+  Email: <%= current_user.email %><br>
+  <%= link_to "Update Information", "/profile/edit" %>
+</section>
