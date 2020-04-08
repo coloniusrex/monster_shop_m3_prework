@@ -45,6 +45,8 @@ Rails.application.routes.draw do
   get "/profile/edit", to: "profiles#edit"
   put "/profile", to: "profiles#update"
 
+  resources :cart, only: [:update], as: 'cart_update'
+
   namespace :merchant do
     get '/dashboard', to: "dashboard#show"
   end
