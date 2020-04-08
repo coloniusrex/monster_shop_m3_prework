@@ -14,6 +14,7 @@ RSpec.describe 'Profile' do
         expect(page).to have_content("Zipcode: #{user.zip}")
         expect(page).to have_content("Email: #{user.email}")
       end
+      
     end
   end
 end
