@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def update_password
     user = User.find(current_user.id)
-    if params[:password] == params[:confirm_password]
+    if params[:password] == params[:confirmation]
       user.password = params[:password]
       if user.save &&
         flash[:notice] = 'Your password has been updated.'
