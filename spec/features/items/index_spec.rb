@@ -19,8 +19,7 @@ RSpec.describe "Items Index Page" do
       expect(page).to have_link(@tire.merchant.name)
       expect(page).to have_link(@pull_toy.name)
       expect(page).to have_link(@pull_toy.merchant.name)
-      expect(page).to have_link(@dog_bone.name)
-      expect(page).to have_link(@dog_bone.merchant.name)
+      expect(page).to have_no_css("#item-#{@dog_bone.id}")
     end
 
     it "I can see a list of all of the items "do
@@ -46,16 +45,70 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_link(@brian.name)
         expect(page).to have_css("img[src*='#{@pull_toy.image}']")
       end
+      expect(page).to have_no_css("#item-#{@dog_bone.id}")
+    end
 
-      within "#item-#{@dog_bone.id}" do
-        expect(page).to have_link(@dog_bone.name)
-        expect(page).to have_content(@dog_bone.description)
-        expect(page).to have_content("Price: $#{@dog_bone.price}")
-        expect(page).to have_content("Inactive")
-        expect(page).to have_content("Inventory: #{@dog_bone.inventory}")
-        expect(page).to have_link(@brian.name)
-        expect(page).to have_css("img[src*='#{@dog_bone.image}']")
-      end
+    it "As any kind of user on the system, I can see all items except disabled items" do
+      user = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 1)
+      merchant = User.create(name: "Colin", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "456@example.com", password: "password", role: 2)
+      admin = User.create(name: "Max", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "789@example.com", password: "password", role: 3)
+
+      visit "/items"
+
+      expect(page).to have_link(@tire.name)
+      expect(page).to have_link(@pull_toy.name)
+
+      expect(page).to have_no_link(@dog_bone.name)
+
+      visit '/login'
+
+      fill_in :email, with: user.email
+      fill_in :password, with: user.password
+
+      click_on 'Login'
+
+      visit "/items"
+
+      expect(page).to have_link(@tire.name)
+      expect(page).to have_link(@pull_toy.name)
+      expect(page).to have_no_link(@dog_bone.name)
+
+      click_on 'Logout'
+
+      visit '/login'
+
+      fill_in :email, with: merchant.email
+      fill_in :password, with: merchant.password
+
+      click_on 'Login'
+
+      visit "/items"
+
+      expect(page).to have_link(@tire.name)
+      expect(page).to have_link(@pull_toy.name)
+      expect(page).to have_no_link(@dog_bone.name)
+
+      click_on 'Logout'
+
+      visit '/login'
+
+      fill_in :email, with: admin.email
+      fill_in :password, with: admin.password
+
+      click_on 'Login'
+
+      visit "/items"
+
+      expect(page).to have_link(@tire.name)
+      expect(page).to have_link(@pull_toy.name)
+      expect(page).to have_no_link(@dog_bone.name)
+
     end
   end
 end
+
+# As any kind of user on the system
+# I can visit the items catalog ("/items")
+# I see all items in the system except disabled items
+#
+# The item image is a link to that item's show page
