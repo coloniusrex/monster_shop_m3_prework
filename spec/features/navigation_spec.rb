@@ -58,5 +58,22 @@ RSpec.describe 'Site Navigation' do
       end
 
     end
+
+    it "404 errors when trying to access paths /merchants or /admin" do
+      visitor = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 0)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(visitor)
+
+      visit "/merchant/dashboard"
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit "/admin/dashboard"
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit "/profile"
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
   end
 end
