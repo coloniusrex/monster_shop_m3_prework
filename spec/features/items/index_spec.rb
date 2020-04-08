@@ -22,6 +22,14 @@ RSpec.describe "Items Index Page" do
       expect(page).to have_no_css("#item-#{@dog_bone.id}")
     end
 
+    it "all item images are links" do
+      visit '/items'
+
+      expect(page).to have_link("#{@tire.id}_image")
+      expect(page).to have_link("#{@pull_toy.id}_image")
+      expect(page).to have_no_link("#{@dog_bone.id}_image")
+    end
+
     it "I can see a list of all of the items "do
 
       visit '/items'
