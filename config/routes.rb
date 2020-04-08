@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/', to: 'welcome#index'
 
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
@@ -34,8 +35,21 @@ Rails.application.routes.draw do
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show"
 
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+
   get "/register", to: "register#new"
   post "/register", to: "register#create"
 
   get "/profile", to: "profiles#show"
+
+  namespace :merchant do
+    get '/dashboard', to: "dashboard#show"
+  end
+
+  namespace :admin do
+    get '/dashboard', to: "dashboard#show"
+  end
+
+  get "/logout", to: "sessions#logout"
 end

@@ -16,7 +16,15 @@ describe "registration" do
 
     click_on "Submit"
 
+
     expect(current_path).to eq("/profile")
+
+    within 'nav' do
+      expect(page).to have_link('Profile')
+      expect(page).to have_link('Logout')
+      expect(page).to have_no_link('Merchant Dashboard')
+      expect(page).to have_no_link('Admin Dashboard')
+    end
     expect(page).to have_content("Your account has been created.")
   end
 
@@ -26,14 +34,15 @@ describe "registration" do
     fill_in :name, with: "David"
     fill_in :address, with: "123 Test St"
     fill_in :city, with: "Denver"
-    fill_in :state, with: "CO"
-    fill_in :zip, with: "80204"
+    fill_in :state, with: ""
+    fill_in :zip, with: ""
     fill_in :password, with: "password"
     fill_in :confirm_pass, with: "password"
 
     click_on "Submit"
 
     expect(page).to have_content("Unable to create account: Required information missing.")
+
   end
 
   it "can't create a new user if user with email already exists" do
@@ -41,7 +50,7 @@ describe "registration" do
 
     visit "/register"
 
-    fill_in :name, with: "Bob"
+    fill_in :name, with: "David"
     fill_in :address, with: "123 Test St"
     fill_in :city, with: "Denver"
     fill_in :state, with: "CO"
@@ -53,32 +62,11 @@ describe "registration" do
     click_on "Submit"
 
     expect(page).to have_content("Email already in use. Try a different email.")
-    expect(find_field('Name').value).to eql("Bob")
-    expect(find_field('Address').value).to eql("123 Test St")
-    expect(find_field('City').value).to eql("Denver")
-    expect(find_field('State').value).to eql("CO")
-    expect(find_field('Zip').value).to eql("80204")
-  end
+    expect(find_field('Name').value).to eql "David"
+    expect(find_field('Address').value).to eql "123 Test St"
+    expect(find_field('City').value).to eql "Denver"
+    expect(find_field('State').value).to eql "CO"
+    expect(find_field('Zip').value).to eql "80204"
 
-  it "can't create a new user if the passwords don't match" do
-    visit "/register"
-
-    fill_in :name, with: "Bob"
-    fill_in :address, with: "123 Test St"
-    fill_in :city, with: "Denver"
-    fill_in :state, with: "CO"
-    fill_in :zip, with: "80204"
-    fill_in :email, with: "123@example.com"
-    fill_in :password, with: "password"
-    fill_in :confirm_pass, with: "actuallyagoodpassword"
-
-    click_on "Submit"
-
-    expect(page).to have_content("Unable to create account: Passwords don't match.")
-    expect(find_field('Name').value).to eql("Bob")
-    expect(find_field('Address').value).to eql("123 Test St")
-    expect(find_field('City').value).to eql("Denver")
-    expect(find_field('State').value).to eql("CO")
-    expect(find_field('Zip').value).to eql("80204")
   end
 end

@@ -5,6 +5,8 @@ class RegisterController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.role = 1
+    
     if User.exists?(email: user_params[:email])
       flash[:error] = "Email already in use. Try a different email."
       render :new
@@ -12,6 +14,7 @@ class RegisterController < ApplicationController
       flash[:error] = "Unable to create account: Passwords don't match."
       render :new
     elsif params[:confirm_pass] == params[:password] && @user.save
+      session[:user_id] = @user.id
       flash[:notice] = "Your account has been created."
       redirect_to "/profile"
     else
@@ -25,5 +28,4 @@ class RegisterController < ApplicationController
   def user_params
     params.permit(:name, :address, :city, :state, :zip, :email, :password)
   end
-
 end

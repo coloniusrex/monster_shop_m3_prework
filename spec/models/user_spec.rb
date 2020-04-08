@@ -4,6 +4,7 @@ describe User do
   describe "validations" do
     [:name, :address, :city, :state, :zip, :address, :password].each do |field|
       it { should validate_presence_of field }
+      
     end
   end
 end

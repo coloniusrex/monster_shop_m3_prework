@@ -1,4 +1,6 @@
 class CartController < ApplicationController
+  before_action :check_role
+
   def add_item
     item = Item.find(params[:item_id])
     cart.add_item(item.id.to_s)
@@ -29,4 +31,10 @@ class CartController < ApplicationController
   #   end
   #   redirect_to "/cart"
   # end
+
+  private
+
+  def check_role
+    render file: "/public/404" unless current_user.role < 3
+  end
 end
