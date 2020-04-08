@@ -4,13 +4,15 @@ class UsersController < ApplicationController
 
   def update_password
     user = User.find(current_user.id)
-    user.password = params[:password]
-    if user.save
-      flash[:notice] = 'Your password has been updated.'
-      redirect_to '/profile'
+    if params[:password] == params[:confirm_password]
+      user.password = params[:password]
+      if user.save &&
+        flash[:notice] = 'Your password has been updated.'
+        redirect_to '/profile'
+      end
     else
-      flash[:error] = 'Something went wrong'
+      flash[:error] = 'Your password and confirm password do not match.'
+      render :password
     end
-
   end
 end
