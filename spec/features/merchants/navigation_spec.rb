@@ -15,5 +15,14 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_content("Logged in as: #{user.name}")
       end
     end
+
+    it "errors when visit admin paths" do
+      merchant = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 2)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+
+      visit "/admin/dashboard"
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
   end
 end
