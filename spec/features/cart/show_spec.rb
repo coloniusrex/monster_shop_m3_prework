@@ -72,4 +72,51 @@ RSpec.describe 'Cart show' do
 
     end
   end
+
+  describe "As a registered user" do
+    it "When my cart has items in it, I can click checkout, create an order and redirect to the orders index with a flash message" do
+      user = User.create(name: "User", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "user@example.com", password: "user", role: 1)
+      merchant = User.create(name: "Merchant", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "merchant@example.com", password: "merchant", role: 2)
+      admin = User.create(name: "Admin", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "admin@example.com", password: "admin", role: 3)
+      dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+      pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+      # order1 = Order.create(id: 3, name: "Colin", address: "400 Wash", city: "Denver", state: "CO", zip: 80203)
+      # ItemOrder.create(order_id: order1.id, item: pull_toy, quantity: 1, price: pull_toy.price)
+      visit '/login'
+
+      fill_in :email, with: user.email
+      fill_in :password, with: user.password
+
+      click_on 'Login'
+
+      visit "/items/#{pull_toy.id}"
+
+      click_on 'Add To Cart'
+
+      click_on 'Cart: 1'
+
+      click_on 'Checkout'
+
+      fill_in :name, with: user.name
+      fill_in :address, with: user.address
+      fill_in :city, with: user.city
+      fill_in :state, with: user.state
+      fill_in :zip, with: user.zip
+
+      click_on 'Create Order'
+
+      expect(current_path).to eql("/profile/orders")
+      expect(page).to have_content('Order Succesfully Created') #flash
+
+      within('.orders-index') do
+        expect(page).to have_content(user.orders.first.id)
+        expect(page).to have_content(user.orders.first.name)
+        expect(page).to have_content(user.orders.first.address)
+        expect(page).to have_content(user.orders.first.status)
+      end
+
+      visit '/cart'
+      expect(page).to have_content('Cart is currently empty')
+    end
+  end
 end

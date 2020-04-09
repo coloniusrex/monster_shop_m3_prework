@@ -1,0 +1,11 @@
+<h1>Profile Orders</h1>
+
+<section class="orders-index">
+  <% @user.orders.each do |order| %>
+    <p><%= link_to "#{order.id}", "/orders/#{order.id}" %></p>
+    <p><%= order.name %></p>
+    <p><%= order.address %></p>
+    <p><%= order.status %></p>
+    <p><%= order.created_at %></p>
+    <% end %>
+</section>
