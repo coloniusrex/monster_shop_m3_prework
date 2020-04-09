@@ -1,13 +1,18 @@
-<h2>Profile Page</h2>
+<h1 align = "center">My Profile</h1>
 
-<section id="profile">
-  <h4>User Info</h4>
-  <p>Username: <%=current_user.name %></p>
-  <p>Address: <%=current_user.address %></p>
-  <p>City: <%=current_user.city %></p>
-  <p>State: <%=current_user.state %></p>
-  <p>Zipcode: <%=current_user.zip %></p>
-  <p>Email: <%=current_user.email %></p>
-  <ul><%= link_to "Update Information", "/profile/edit" %></ul>
-  <ul><%= link_to "Change password", "/profile/edit_password" %></ul>
+<section id="profile" class="grid-item">
+  <h2>User Info</h2>
+  Username: <%=current_user.name %><br>
+  Address: <%=current_user.address %>,
+  <%=current_user.city %>,
+  <%=current_user.state %>
+  <%=current_user.zip %><br>
+  Email: <%=current_user.email %><br>
+  <%= link_to "Update Information", "/profile/edit" %>
+  <%= link_to "Change password", "/profile/edit_password" %>
+</section><br>
+<section class="grid-container">
+  <section class="grid-item">
+    <%= link_to "My Orders", "/profile/orders" %>
+  </section>
 </section>
