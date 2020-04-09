@@ -5,12 +5,14 @@ describe "all users" do
 
     user = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 1)
 
-    visit '/login'
+    visit "/"
 
-    fill_in :email, with: user.email
-    fill_in :password, with: user.password
-    click_on 'Login'
-    visit "/profile"
+    click_on "Log-In"
+
+    fill_in :email, with: "123@example.com"
+    fill_in :password, with: "password"
+
+    click_on "Login"
 
     within "#profile" do
       expect(page).to have_content("David")
@@ -33,10 +35,26 @@ describe "all users" do
     click_on("Save Information")
 
     expect(current_path).to eq("/profile")
-    
+<<<<<<< HEAD
+
     within "#profile" do
+=======
+
+    expect(page).to have_content("Bobby")
+    expect(page).to have_content("456 Test Ave")
+
+    click_on "Logout"
+
+    click_on "Log-In"
+
+    fill_in :email, with: '222@example.com'
+    fill_in :password, with: 'password'
+    click_on "Login"
+
+    expect(current_path).to eq("/profile")
+    within("#profile") do
+>>>>>>> d9677f8e8ec51ebc24a1521aed0c6f7a7c4783b6
       expect(page).to have_content("Bobby")
-      expect(page).to have_content("456 Test Ave")
     end
   end
 

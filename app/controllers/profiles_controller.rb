@@ -9,14 +9,14 @@ class ProfilesController < ApplicationController
 
   def update
     user = User.find(current_user.id)
-    if existing_email?
+    if !existing_email?
+      if user.update!(user_params)
+        flash[:notice] = "Your information has successfully been updated."
+        redirect_to "/profile"
+      end
+    else
       flash[:error] = "That email is already in use."
       render :edit
-    else
-      binding.pry
-      user.update!(user_params.merge(:password => user.password))
-      flash[:notice] = "Your information has successfully been updated."
-      redirect_to "/profile"
     end
   end
 
@@ -27,7 +27,8 @@ class ProfilesController < ApplicationController
   end
 
   def user_params
-    params.permit(:name, :address, :city, :state, :zip, :email)
+    params[:password_digest] = current_user.password_digest
+    params.permit(:name, :address, :city, :state, :zip, :email, :password_digest)
   end
 
   def require_user
