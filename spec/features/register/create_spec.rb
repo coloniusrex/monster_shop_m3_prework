@@ -69,4 +69,21 @@ describe "registration" do
     expect(find_field('Zip').value).to eql "80204"
 
   end
+  it "can't create a user if passwords do not match" do
+    visit "/register"
+
+    fill_in :name, with: "David"
+    fill_in :address, with: "123 Test St"
+    fill_in :city, with: "Denver"
+    fill_in :state, with: "CO"
+    fill_in :zip, with: "80204"
+    fill_in :email, with: "123@example.com"
+    fill_in :password, with: "password"
+    fill_in :confirm_pass, with: "wrong_password"
+
+    click_on "Submit"
+
+    expect(page).to have_content("Unable to create account: Passwords don't match.")
+
+  end
 end
