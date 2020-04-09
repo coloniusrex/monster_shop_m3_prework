@@ -45,7 +45,6 @@ class Cart
   end
 
   def limit_reached?(item)
-    item = Item.find(item)
-    @contents[item] == item.inventory
+    @contents[item] == Item.find(item).inventory
   end
 end

@@ -8,9 +8,8 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    user = User.find(current_user.id)
     if !existing_email?
-      if user.update!(user_params)
+      if current_user.update!(user_params)
         flash[:notice] = "Your information has successfully been updated."
         redirect_to "/profile"
       end
@@ -27,8 +26,7 @@ class ProfilesController < ApplicationController
   end
 
   def user_params
-    params[:password_digest] = current_user.password_digest
-    params.permit(:name, :address, :city, :state, :zip, :email, :password_digest)
+    params.permit(:name, :address, :city, :state, :zip, :email)
   end
 
   def require_user
