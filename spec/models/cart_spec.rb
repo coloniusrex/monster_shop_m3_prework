@@ -70,10 +70,10 @@ RSpec.describe Cart do
     end
 
     it "#limit_reached?(item) returns true if quantity in cart matches the item stock" do
-      @cart.add_item(@paper)
-      expect(@cart.limit_reached?(@paper.id)).to be_falsey
-      @cart.add_item(@paper)
-      expect(@cart.limit_reached?(@paper.id)).to be_truthy
+      @cart.add_item(@paper.id.to_s)
+      expect(@cart.limit_reached?(@paper.id.to_s)).to be_falsey
+      @cart.add_item(@paper.id.to_s)
+      expect(@cart.limit_reached?(@paper.id.to_s)).to be_truthy
     end
   end
 end
