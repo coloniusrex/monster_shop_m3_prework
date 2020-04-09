@@ -17,21 +17,26 @@ describe "cart page" do
 
     visit "/cart"
 
-    within "#cart-item-#{@pencil.id}" do
-      expect(page).to have_content("1")
-      expect(page).to have_link("+1")
-      expect(page).to have_link("-1")
-      click_on("+1")
-      expect(page).to have_content("2")
-      click_on("+1")
-      expect(page).to have_content("3")
-      click_on("-1")
-      expect(page).to have_content("2")
-      click_on("-1")
-      expect(page).to have_content("1")
-      click_on("-1")
+    within "#cart-item-#{@paper.id}" do
+      within "##{@paper.id}-quantity" do
+        expect(page).to have_content("1")
+        expect(page).to have_link("+1")
+        expect(page).to have_link("-1")
+        click_on("+1")
+        expect(page).to have_content("2")
+        click_on("+1")
+        expect(page).to have_content("3")
+        click_on("+1")
+        expect(page).to have_content("3")
+        click_on("-1")
+        expect(page).to have_content("2")
+        click_on("-1")
+        expect(page).to have_content("1")
+        click_on("-1")
+      end
     end
 
-    expect(page).to have_no_content(@pencil.name)
+    expect(page).to have_no_content(@paper.name)
+
   end
 end
