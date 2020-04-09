@@ -35,10 +35,7 @@ describe "all users" do
     click_on("Save Information")
 
     expect(current_path).to eq("/profile")
-<<<<<<< HEAD
 
-    within "#profile" do
-=======
 
     expect(page).to have_content("Bobby")
     expect(page).to have_content("456 Test Ave")
@@ -53,7 +50,6 @@ describe "all users" do
 
     expect(current_path).to eq("/profile")
     within("#profile") do
->>>>>>> d9677f8e8ec51ebc24a1521aed0c6f7a7c4783b6
       expect(page).to have_content("Bobby")
     end
   end
