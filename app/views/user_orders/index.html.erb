@@ -2,7 +2,7 @@
 
 <section class="orders-index">
   <% current_user.orders.each do |order| %>
-    <p><%= link_to "#{order.id}", "/orders/#{order.id}" %></p>
+    <p><%= link_to "#{order.id}", "/profile/orders/#{order.id}" %></p>
     <p><%= order.name %></p>
     <p><%= order.address %></p>
     <p><%= order.status %></p>

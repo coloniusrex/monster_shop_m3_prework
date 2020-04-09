@@ -6,6 +6,7 @@ class OrdersController <ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    return update_status if @order.item_orders.all? {|item_order| item_order.status == "Fulfilled"}
   end
 
   def create
@@ -32,5 +33,9 @@ class OrdersController <ApplicationController
 
   def order_params
     params.permit(:name, :address, :city, :state, :zip)
+  end
+
+  def update_status
+    @order.update(status: "Packaged")
   end
 end
