@@ -9,12 +9,12 @@ RSpec.describe 'Profile' do
       within '#profile' do
         expect(page).to have_content("Username: #{user.name}")
         expect(page).to have_content("Address: #{user.address}")
-        expect(page).to have_content("City: #{user.city}")
-        expect(page).to have_content("State: #{user.state}")
-        expect(page).to have_content("Zipcode: #{user.zip}")
+        expect(page).to have_content(user.city)
+        expect(page).to have_content(user.state)
+        expect(page).to have_content(user.zip)
         expect(page).to have_content("Email: #{user.email}")
       end
-      
+
     end
   end
 end
