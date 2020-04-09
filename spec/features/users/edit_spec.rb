@@ -9,7 +9,7 @@ describe "all users" do
 
     visit "/profile"
 
-    within ".user-info" do
+    within "#profile" do
       expect(page).to have_content("David")
       click_link("Update Information")
     end
@@ -31,7 +31,7 @@ describe "all users" do
 
     expect(current_path).to eq("/profile")
 
-    within ".user-info" do
+    within "#profile" do
       expect(page).to have_content("Bobby")
       expect(page).to have_content("456 Test Ave")
     end
@@ -45,7 +45,7 @@ describe "all users" do
 
     visit "/profile"
 
-    within ".user-info" do
+    within "#profile" do
       expect(page).to have_content("Bobby")
       click_link("Update Information")
     end
