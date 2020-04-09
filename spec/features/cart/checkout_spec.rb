@@ -30,7 +30,15 @@ RSpec.describe 'Cart show' do
 
       within '#check_visitor' do
         expect(page).to have_link("login")
+        click_on 'login'
+        expect(current_path).to eq("/login")
+      end
+      visit '/cart'
+
+      within '#check_visitor' do
         expect(page).to have_link("register")
+        click_on 'register'
+        expect(current_path).to eq("/register")
       end
 
     end
