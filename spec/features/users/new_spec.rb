@@ -34,7 +34,7 @@ describe "Log in" do
     click_on 'Login'
 
     expect(page).to have_content("You have successfully logged in.")
-    expect(current_path).to eq('/admin/dashboard')
+    expect(current_path).to eq('/admin')
   end
 
   it "I cannot log in with bad credentials" do
@@ -83,7 +83,7 @@ describe "Log in" do
 
     visit '/login'
     expect(page).to have_content("You're already logged in.")
-    expect(current_path).to eq('/admin/dashboard')
+    expect(current_path).to eq('/admin')
   end
 
 
