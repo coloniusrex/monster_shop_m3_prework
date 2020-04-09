@@ -47,5 +47,38 @@ describe Item, type: :model do
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end
+
+    it "sorts 5 most/least popular items" do
+      bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+
+      #bike_shop items
+      tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      rim = bike_shop.items.create(name: "Shiny Wheel", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      tire_parts = bike_shop.items.create(name: "Parts for Wheels", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      axle = bike_shop.items.create(name: "Wheel Axle", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      seat = bike_shop.items.create(name: "Bike Seat", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+
+      #dog_shop items
+      pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+      dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+      chew_rope = dog_shop.items.create(name: "Chew Rope", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+      squeaky_toy = dog_shop.items.create(name: "Squeaky Toy", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+      kong_toy = dog_shop.items.create(name: "Kong Toy", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+
+
+      order1 = Order.create(id: 3, name: "Colin", address: "400 Wash", city: "Denver", state: "CO", zip: 80203)
+
+      item_order1 = ItemOrder.create(order_id: order1.id, item: pull_toy, quantity: 1, price: pull_toy.price)
+      item_order2 = ItemOrder.create(order_id: order1.id, item: dog_bone, quantity: 2, price: dog_bone.price)
+      item_order3 = ItemOrder.create(order_id: order1.id, item: tire, quantity: 3, price: tire.price)
+      item_order4 = ItemOrder.create(order_id: order1.id, item: rim, quantity: 4, price: rim.price)
+      item_order5 = ItemOrder.create(order_id: order1.id, item: chew_rope, quantity: 5, price: chew_rope.price)
+      item_order6 = ItemOrder.create(order_id: order1.id, item: squeaky_toy, quantity: 6, price: squeaky_toy.price)
+
+      expect(Item.most_popular.to_a).to eql([squeaky_toy, chew_rope, rim, tire, dog_bone])
+
+      expect(Item.least_popular.to_a).to eql([pull_toy, dog_bone, tire, rim, chew_rope])
+    end
   end
 end

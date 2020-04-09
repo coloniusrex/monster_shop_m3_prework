@@ -21,3 +21,15 @@
     </section>
   <% end %>
 </section>
+<section class="statistics">
+  <section id="most-popular">
+    <% Item.most_popular.each do |item| %>
+      <p><%= item.name %>: <%= item.total_quantity %></p>
+    <% end %>
+  </section>
+  <section id="least-popular">
+    <% Item.least_popular.each do |item| %>
+      <p><%= item.name %>: <%= item.total_quantity %></p>
+    <% end %>
+  </section>
+</section>
