@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Cart show' do
   describe 'When I have added items to my cart' do
     before(:each) do
+
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
 
@@ -19,6 +20,7 @@ RSpec.describe 'Cart show' do
     end
 
     it 'Theres a message saying to login or register in order to checkout' do
+      
       visit "/cart"
 
       expect(page).to have_content("You need to login or register in order to checkout.")
