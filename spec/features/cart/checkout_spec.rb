@@ -18,6 +18,13 @@ RSpec.describe 'Cart show' do
       @items_in_cart = [@paper,@tire,@pencil]
     end
 
+    it 'Theres a message saying to login or register in order to checkout' do
+      visit "/cart"
+
+      expect(page).to have_content("You need to login or register in order to checkout.")
+
+    end
+
     it 'Theres a link to checkout' do
       visit "/cart"
 
