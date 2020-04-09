@@ -46,6 +46,8 @@ Rails.application.routes.draw do
   put "/profile", to: "profiles#update"
 
   resources :cart, only: [:update], as: 'cart_update'
+  get "/profile/edit_password", to: "users#password"
+  patch '/profile/edit_password', to: "users#update_password"
 
   namespace :merchant do
     get '/dashboard', to: "dashboard#show"
