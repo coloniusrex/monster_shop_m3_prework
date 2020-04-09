@@ -49,5 +49,18 @@ RSpec.describe 'Profile' do
       expect(page).to have_content("Your password and confirm password do not match.")
 
     end
+    it "I cannot have a blank password" do
+
+      visit '/profile'
+      click_link 'Change password'
+
+      fill_in 'password', with:''
+      fill_in 'confirmation', with: ''
+      click_on 'Submit'
+
+
+      expect(page).to have_content("Your password is blank.")
+
+    end
   end
 end
