@@ -5,9 +5,14 @@ describe "all users" do
 
     user = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 1)
 
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit "/"
 
-    visit "/profile"
+    click_on "Log-In"
+
+    fill_in :email, with: "123@example.com"
+    fill_in :password, with: "password"
+
+    click_on "Login"
 
     within "#profile" do
       expect(page).to have_content("David")
@@ -31,9 +36,20 @@ describe "all users" do
 
     expect(current_path).to eq("/profile")
 
-    within "#profile" do
+    expect(page).to have_content("Bobby")
+    expect(page).to have_content("456 Test Ave")
+
+    click_on "Logout"
+
+    click_on "Log-In"
+
+    fill_in :email, with: '222@example.com'
+    fill_in :password, with: 'password'
+    click_on "Login"
+
+    expect(current_path).to eq("/profile")
+    within("#profile") do
       expect(page).to have_content("Bobby")
-      expect(page).to have_content("456 Test Ave")
     end
   end
 
