@@ -36,6 +36,7 @@ describe "all users" do
 
     expect(current_path).to eq("/profile")
 
+
     expect(page).to have_content("Bobby")
     expect(page).to have_content("456 Test Ave")
 

@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Cart show' do
   describe 'When I have added items to my cart' do
     before(:each) do
+
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
 
@@ -18,7 +19,38 @@ RSpec.describe 'Cart show' do
       @items_in_cart = [@paper,@tire,@pencil]
     end
 
-    it 'Theres a link to checkout' do
+    it 'Theres a message saying to login or register in order to checkout' do
+      visit "/cart"
+
+      expect(page).to have_content("You need to login or register in order to checkout.")
+
+    end
+    it 'Theres a link to login and register if not login' do
+      visit "/cart"
+
+      within '#check_visitor' do
+        expect(page).to have_link("login")
+        click_on 'login'
+        expect(current_path).to eq("/login")
+      end
+      visit '/cart'
+
+      within '#check_visitor' do
+        expect(page).to have_link("register")
+        click_on 'register'
+        expect(current_path).to eq("/register")
+      end
+
+    end
+
+    it 'Theres a link to checkout if you are login' do
+      user = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 1)
+      visit '/login'
+
+      fill_in :email, with: user.email
+      fill_in :password, with: user.password
+      click_on 'Login'
+
       visit "/cart"
 
       expect(page).to have_link("Checkout")
