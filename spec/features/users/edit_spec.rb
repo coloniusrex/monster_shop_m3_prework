@@ -5,8 +5,11 @@ describe "all users" do
 
     user = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 1)
 
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit '/login'
 
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on 'Login'
     visit "/profile"
 
     within "#profile" do
@@ -30,7 +33,7 @@ describe "all users" do
     click_on("Save Information")
 
     expect(current_path).to eq("/profile")
-
+    
     within "#profile" do
       expect(page).to have_content("Bobby")
       expect(page).to have_content("456 Test Ave")

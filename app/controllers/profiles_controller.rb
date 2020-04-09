@@ -8,11 +8,13 @@ class ProfilesController < ApplicationController
   end
 
   def update
+    user = User.find(current_user.id)
     if existing_email?
       flash[:error] = "That email is already in use."
       render :edit
     else
-      current_user.update(user_params)
+      binding.pry
+      user.update!(user_params.merge(:password => user.password))
       flash[:notice] = "Your information has successfully been updated."
       redirect_to "/profile"
     end
