@@ -30,7 +30,7 @@
       </td>
       <td>
         <center>
-          <p>
+          <p id="<%= item.id %>-quantity">
             <%= link_to "-1", cart_update_path(item.id, quantity: "dec"), method: :patch %>
             <%= quantity %>
             <%= link_to "+1", cart_update_path(item.id, quantity: "inc"), method: :patch %>
