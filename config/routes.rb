@@ -45,6 +45,8 @@ Rails.application.routes.draw do
   get "/profile/edit", to: "profiles#edit"
   patch "/profile", to: "profiles#update"
 
+  get "/profile/orders", to: 'user_orders#index'
+
   resources :cart, only: [:update], as: 'cart_update'
   get "/profile/edit_password", to: "users#password"
   patch '/profile/edit_password', to: "users#update_password"

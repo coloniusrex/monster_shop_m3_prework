@@ -29,30 +29,37 @@ RSpec.describe("Order Creation") do
     end
 
     it 'I can create a new order' do
-      name = "Bert"
-      address = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
+      user = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 1)
+      visit '/login'
 
-      fill_in :name, with: name
-      fill_in :address, with: address
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
+      fill_in :email, with: user.email
+      fill_in :password, with: user.password
+      click_on 'Login'
+
+      visit '/cart'
+      click_on 'Checkout'
+
+      fill_in :name, with: user.name
+      fill_in :address, with: user.address
+      fill_in :city, with: user.city
+      fill_in :state, with: user.state
+      fill_in :zip, with: user.zip
 
       click_button "Create Order"
 
       new_order = Order.last
 
-      expect(current_path).to eq("/orders/#{new_order.id}")
+      expect(current_path).to eq("/profile/orders")
+
+      click_on "#{new_order.id}"
+      expect(current_path).to eql("/orders/#{new_order.id}")
 
       within '.shipping-address' do
-        expect(page).to have_content(name)
-        expect(page).to have_content(address)
-        expect(page).to have_content(city)
-        expect(page).to have_content(state)
-        expect(page).to have_content(zip)
+        expect(page).to have_content(user.name)
+        expect(page).to have_content(user.address)
+        expect(page).to have_content(user.city)
+        expect(page).to have_content(user.state)
+        expect(page).to have_content(user.zip)
       end
 
       within "#item-#{@paper.id}" do
