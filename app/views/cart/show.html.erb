@@ -47,7 +47,10 @@
   <p>Total: <%= number_to_currency(cart.total) %></p>
   <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
   <% if current_user.role == 0%>
-    <p> You need to login or register in order to checkout. </p>
+    <article id="check_visitor">
+      <p> You need to <%=link_to "login", "/login", method: :get %>
+        or <%=link_to "register", "/register", method: :get %>  in order to checkout. </p>
+    </article>
   <% else %>
     <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
   <% end %>

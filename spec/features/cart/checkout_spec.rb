@@ -20,10 +20,18 @@ RSpec.describe 'Cart show' do
     end
 
     it 'Theres a message saying to login or register in order to checkout' do
-      
       visit "/cart"
 
       expect(page).to have_content("You need to login or register in order to checkout.")
+
+    end
+    it 'Theres a link to login and register if not login' do
+      visit "/cart"
+
+      within '#check_visitor' do
+        expect(page).to have_link("login")
+        expect(page).to have_link("register")
+      end
 
     end
 
