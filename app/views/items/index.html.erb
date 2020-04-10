@@ -17,17 +17,19 @@
       <p> <%= item.description unless @merchant%> </p>
       <p>Price: <%=number_to_currency(item.price) %> </p>
       <p>Inventory: <%= item.inventory %> </p>
-    <% end %>
     </section>
+    <% end %>
   <% end %>
 </section>
 <section class="statistics">
   <section id="most-popular">
+    <h4>Most Popular Items</h4>
     <% Item.most_popular.each do |item| %>
       <p><%= item.name %>: <%= item.total_quantity %></p>
     <% end %>
   </section>
   <section id="least-popular">
+    <h4>Least Popular Items</h4>
     <% Item.least_popular.each do |item| %>
       <p><%= item.name %>: <%= item.total_quantity %></p>
     <% end %>
