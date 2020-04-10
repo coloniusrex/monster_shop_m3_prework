@@ -7,6 +7,7 @@
       <th>City</th>
       <th>State</th>
       <th>Zip</th>
+      <th>Status</th>
     </tr>
     <tr>
       <td><p><%= @order.name %> </p></td>
@@ -14,6 +15,7 @@
       <td><p><%= @order.city %> </p></td>
       <td><p><%= @order.state %> </p></td>
       <td><p><%= @order.zip %> </p></td>
+      <td><p><%= @order.status %> </p></td>
     </tr>
   </table>
 </section>
@@ -28,6 +30,7 @@
       <th>Quantity</th>
       <th>Price</th>
       <th>Subtotal</th>
+      <th>Status</th>
     </tr>
   <% @order.item_orders.each do |item_order|%>
     <tr>
@@ -38,6 +41,7 @@
         <td><p><%= item_order.quantity%></p></td>
         <td><p><%= number_to_currency(item_order.price)%></p></td>
         <td><p><%= number_to_currency(item_order.subtotal)%></p></td>
+        <td><p><%= item_order.status %></p></td>
       </section>
     </tr>
   <% end %>
@@ -57,3 +61,4 @@
   <p><%= @order.created_at%></p>
   <p><%= @order.updated_at%></p>
 </section>
+<%= link_to "Cancel Order", "/profile/orders/#{@order.id}/cancel", method: :patch %>

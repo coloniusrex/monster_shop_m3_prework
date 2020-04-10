@@ -48,6 +48,42 @@ RSpec.describe("Order Creation") do
       click_on "#{new_order.id}"
       expect(current_path).to eql("/profile/orders/#{new_order.id}")
 
+      within '.shipping-address' do
+        expect(page).to have_content(user.name)
+        expect(page).to have_content(user.address)
+        expect(page).to have_content(user.city)
+        expect(page).to have_content(user.state)
+        expect(page).to have_content(user.zip)
+      end
+
+      within "#item-#{@paper.id}" do
+        expect(page).to have_link(@paper.name)
+        expect(page).to have_content("$#{@paper.price}")
+        expect(page).to have_content("2")
+        expect(page).to have_content("$40")
+      end
+
+      within "#item-#{@tire.id}" do
+        expect(page).to have_link(@tire.name)
+        expect(page).to have_content("$#{@tire.price}")
+        expect(page).to have_content("1")
+        expect(page).to have_content("$100")
+      end
+
+      within "#item-#{@pencil.id}" do
+        expect(page).to have_link(@pencil.name)
+        expect(page).to have_content("$#{@pencil.price}")
+        expect(page).to have_content("1")
+        expect(page).to have_content("$2")
+      end
+
+      within "#grandtotal" do
+        expect(page).to have_content("Total Cost: $142.00")
+      end
+
+      within "#timestamps" do
+        expect(page).to have_content(new_order.created_at)
+      end
     end
 
     it 'i cant create order if info not filled out' do
