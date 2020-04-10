@@ -9,8 +9,8 @@
 ItemOrder.destroy_all
 Merchant.destroy_all
 Item.destroy_all
-User.destroy_all
 Order.destroy_all
+User.destroy_all
 ItemOrder.destroy_all
 
 #merchants
@@ -19,17 +19,17 @@ dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', c
 
 #bike_shop items
 tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-rim = bike_shop.items.create(name: "Shiny Wheel", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-tire_parts = bike_shop.items.create(name: "Parts for Wheels", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-axle = bike_shop.items.create(name: "Wheel Axle", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-seat = bike_shop.items.create(name: "Bike Seat", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+rim = bike_shop.items.create(name: "Rim", description: "Strong spokes.", price: 100, image: "https://cdn10.bigcommerce.com/s-6w6qcuo4/product_images/attribute_rule_images/19719_zoom_1516397191.jpg", inventory: 12)
+tire_parts = bike_shop.items.create(name: "Helmet", description: "Protect the noggin'.", price: 100, image: "https://dks.scene7.com/is/image/GolfGalaxy/17BELAPRMSXXXXXXXDLT_Matte_Black_Gunmetal?wid=2000&fmt=pjpeg", inventory: 12)
+axle = bike_shop.items.create(name: "Handle Grips", description: "Keep on hangin' on.", price: 100, image: "https://images.amain.com/images/large/bikes/pnw-components/lga25tb.jpg?width=950", inventory: 12)
+seat = bike_shop.items.create(name: "Bike Seat", description: "Squishy tushy.", price: 100, image: "https://www.sefiles.net/images/library/zoom/planet-bike-little-a.r.s-bike-seat-231296-1-19-9.jpg", inventory: 12)
 
 #dog_shop items
 pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
-dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
-chew_rope = dog_shop.items.create(name: "Chew Rope", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
-squeaky_toy = dog_shop.items.create(name: "Squeaky Toy", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
-kong_toy = dog_shop.items.create(name: "Kong Toy", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+dog_bone = dog_shop.items.create(name: "Dog Bone", description: "Bonified fun!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+chew_rope = dog_shop.items.create(name: "Chew Rope", description: "Laffy Lasso", price: 21, image: "https://ae01.alicdn.com/kf/HTB1G1JIMXXXXXa8XVXXq6xXFXXXv/Free-Shipping-Cotton-Rope-Pet-Dog-toy-Multicolor-For-Puppy-Double-Knot-Chew-Toy-Durable-Braided.jpg", inventory: 21)
+squeaky_toy = dog_shop.items.create(name: "Squeaky Toy", description: "Dogs love it. Humans hate it.", price: 21, image: "https://i.pinimg.com/originals/90/7e/13/907e138fc1e8401dcedabb795d07fd67.jpg", inventory: 21)
+kong_toy = dog_shop.items.create(name: "Kong Toy", description: "They paid us to say that.", price: 21, image: "https://www.dogtuff.com/media/catalog/product/cache/e4d64343b1bc593f1c5348fe05efa4a6/k/o/kong_classic_red_xxl_pkg.jpg", inventory: 21)
 
 #users
 
