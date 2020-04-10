@@ -34,24 +34,26 @@ RSpec.describe 'Site Navigation' do
 
       visit '/admin'
       within '#Packaged' do
-        expect(page).to have_content(@user1.name)
+        expect(page).to have_link(@user1.name)
         expect(page).to have_content(@order_1.id)
         expect(page).to have_content(@order_1.created_at)
       end
       within '#Pending' do
-        expect(page).to have_content(@user1.name)
+        expect(page).to have_link(@user1.name)
         expect(page).to have_content(@order_2.id)
         expect(page).to have_content(@order_2.created_at)
       end
       within '#Shipped' do
-        expect(page).to have_content(@user2.name)
+        expect(page).to have_link(@user2.name)
         expect(page).to have_content(@order_3.id)
         expect(page).to have_content(@order_3.created_at)
       end
       within '#Cancelled' do
-        expect(page).to have_content(@user2.name)
+        expect(page).to have_link(@user2.name)
         expect(page).to have_content(@order_4.id)
         expect(page).to have_content(@order_4.created_at)
+        click_on @user2.name
+        expect(current_path).to eq("/admin/users/#{@user2.id}")
       end
     end
   end

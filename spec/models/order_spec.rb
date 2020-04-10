@@ -33,5 +33,8 @@ describe Order, type: :model do
     it 'grandtotal' do
       expect(@order_1.grandtotal).to eq(230)
     end
+    it 'find_user' do
+      expect(@order_1.find_user).to eq("David")
+    end
   end
 end
