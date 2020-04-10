@@ -4,7 +4,7 @@ class UserOrdersController < ApplicationController
 
   def cancel
     order = Order.find(params[:order_id])
-    order.update(status: "Canceled")
+    order.update(status: "Cancelled")
     if order.save
       order.item_orders.each do |item_order|
         item = Item.find(item_order.item_id)

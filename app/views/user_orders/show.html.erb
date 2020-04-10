@@ -61,4 +61,6 @@
   <p><%= @order.created_at%></p>
   <p><%= @order.updated_at%></p>
 </section>
-<%= link_to "Cancel Order", "/profile/orders/#{@order.id}/cancel", method: :patch %>
+<% if @order.status == "Pending" || @order.status == "Packaged" %>
+  <%= link_to "Cancel Order", "/profile/orders/#{@order.id}/cancel", method: :patch %>
+<%end%>
