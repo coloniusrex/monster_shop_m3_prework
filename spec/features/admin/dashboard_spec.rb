@@ -56,5 +56,31 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq("/admin/users/#{@user2.id}")
       end
     end
+
+    it "I see all orders in the system" do
+      admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit '/admin'
+      within '#Shipped' do
+        expect(page).to have_link(@user2.name)
+        expect(page).to have_content(@order_3.id)
+        expect(page).to have_content(@order_3.created_at)
+      end
+
+      within '#Packaged' do
+        expect(page).to have_link('Ship')
+        click_on 'Ship'
+      end
+
+      within '#Shipped' do
+        expect(page).to have_link(@user2.name)
+        expect(page).to have_content(@order_3.id)
+        expect(page).to have_content(@order_3.created_at)
+        expect(page).to have_link(@user1.name)
+        expect(page).to have_content(@order_1.id)
+        expect(page).to have_content(@order_1.created_at)
+      end
+    end
   end
 end

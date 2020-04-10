@@ -5,6 +5,7 @@
     <ul><%= link_to "#{order.find_user}", "/admin/users/#{order.user_id}" %></ul>
     <p>Order ID: <%= order.id %></p>
     <p>Created at: <%= order.created_at %></p>
+    <ul><%= link_to "Ship", "/admin", method: :shipped%>
   <% end %>
 </article>
 <article id="Pending">
