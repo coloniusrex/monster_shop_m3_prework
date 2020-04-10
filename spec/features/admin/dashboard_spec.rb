@@ -12,7 +12,7 @@ RSpec.describe 'Site Navigation' do
       @user1 = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 1)
       @user2 = User.create(name: "Bob", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 1)
 
-      @order_1 = @user1.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: 'Pending')
+      @order_1 = @user1.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: 'Packaged')
       @order_2 = @user1.orders.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
       @order_3 = @user2.orders.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210, status: 'Shipped')
       @order_4 = @user2.orders.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210, status: 'Cancelled')
@@ -33,24 +33,23 @@ RSpec.describe 'Site Navigation' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
       visit '/admin'
-
       within '#Packaged' do
-        expect(page).to have_link(@user1.name)
-        expect(page).to have_content(@order_2.id)
-        expect(page).to have_content(@order_2.created_at)
-      end
-      within '#Pending' do
-        expect(page).to have_link(@user1.name)
+        expect(page).to have_content(@user1.name)
         expect(page).to have_content(@order_1.id)
         expect(page).to have_content(@order_1.created_at)
       end
+      within '#Pending' do
+        expect(page).to have_content(@user1.name)
+        expect(page).to have_content(@order_2.id)
+        expect(page).to have_content(@order_2.created_at)
+      end
       within '#Shipped' do
-        expect(page).to have_link(@user2.name)
+        expect(page).to have_content(@user2.name)
         expect(page).to have_content(@order_3.id)
         expect(page).to have_content(@order_3.created_at)
       end
       within '#Cancelled' do
-        expect(page).to have_link(@user2.name)
+        expect(page).to have_content(@user2.name)
         expect(page).to have_content(@order_4.id)
         expect(page).to have_content(@order_4.created_at)
       end

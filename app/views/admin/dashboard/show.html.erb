@@ -1,1 +1,30 @@
 <h1> Welcome Admin </h1>
+<h3> Orders </h3>
+<article id="Packaged">
+  <% Order.where("status = 'Packaged'").each do |order| %>
+    <p><%= order.find_user %></p>
+    <p><%= order.id %></p>
+    <p><%= order.created_at %></p>
+  <% end %>
+</article>
+<article id="Pending">
+  <% Order.where("status = 'Pending'").each do |order| %>
+    <p><%= order.find_user %></p>
+    <p><%= order.id %></p>
+    <p><%= order.created_at %></p>
+  <% end %>
+</article>
+<article id="Shipped">
+  <% Order.where("status = 'Shipped'").each do |order| %>
+    <p><%= order.find_user %></p>
+    <p><%= order.id %></p>
+    <p><%= order.created_at %></p>
+  <% end %>
+</article>
+<article id="Cancelled">
+  <% Order.where("status = 'Cancelled'").each do |order| %>
+    <p><%= order.find_user %></p>
+    <p><%= order.id %></p>
+    <p><%= order.created_at %></p>
+  <% end %>
+</article>
