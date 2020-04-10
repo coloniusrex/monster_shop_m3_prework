@@ -25,17 +25,17 @@ RSpec.describe "As a registered user on the user profile orders page", type: :fe
 
     within "#item-#{pull_toy.id}" do
       expect(page).to have_link(pull_toy.name)
-      expect(page).to have_link("#{pull_toy.merchant.name}")
-      expect(page).to have_content("$#{pull_toy.price}")
+      expect(page).to have_content("#{pull_toy.description}")
       expect(page).to have_content("2")
+      expect(page).to have_content("$#{pull_toy.price}")
       expect(page).to have_content("$20")
     end
 
     within "#item-#{dog_bone.id}" do
       expect(page).to have_link(dog_bone.name)
-      expect(page).to have_link("#{dog_bone.merchant.name}")
-      expect(page).to have_content("$#{dog_bone.price}")
+      expect(page).to have_content("#{dog_bone.description}")
       expect(page).to have_content("7")
+      expect(page).to have_content("$#{dog_bone.price}")
       expect(page).to have_content("$147")
     end
 
@@ -53,6 +53,7 @@ RSpec.describe "As a registered user on the user profile orders page", type: :fe
 
     within "#order-id" do
       expect(page).to have_content("Order ID: #{order1.id}")
+      expect(page).to have_content("Order Status: #{order1.status}")
     end
   end
 end
