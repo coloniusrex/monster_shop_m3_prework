@@ -9,6 +9,10 @@ class Order <ApplicationRecord
     item_orders.sum('price * quantity')
   end
 
+  def find_user
+    User.find(self.user_id).name
+  end
+
   def total_quantity
     item_orders.sum(:quantity)
   end

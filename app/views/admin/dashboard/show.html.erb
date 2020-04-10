@@ -1,1 +1,35 @@
 <h1> Welcome Admin </h1>
+<h3> Orders </h3>
+<h4> Packaged </h4>
+<article id="Packaged">
+  <% Order.where("status = 'Packaged'").each do |order| %>
+    <ul><%= link_to "#{order.find_user}", "/admin/users/#{order.user_id}" %></ul>
+    <p>Order ID: <%= order.id %></p>
+    <p>Created at: <%= order.created_at %></p>
+    <ul><%= link_to "Ship", "/admin/#{order.id}", method: :patch%>
+  <% end %>
+</article>
+<h4> Pending </h4>
+<article id="Pending">
+  <% Order.where("status = 'Pending'").each do |order| %>
+    <ul><%= link_to "#{order.find_user}", "/admin/users/#{order.user_id}" %></ul>
+    <p>Order ID: <%= order.id %></p>
+    <p>Created at: <%= order.created_at %></p>
+  <% end %>
+</article>
+<h4> Shipped </h4>
+<article id="Shipped">
+  <% Order.where("status = 'Shipped'").each do |order| %>
+    <ul><%= link_to "#{order.find_user}", "/admin/users/#{order.user_id}" %></ul>
+    <p>Order ID: <%= order.id %></p>
+    <p>Created at: <%= order.created_at %></p>
+  <% end %>
+</article>
+<h4> Cancelled </h4>
+<article id="Cancelled">
+  <% Order.where("status = 'Cancelled'").each do |order| %>
+    <ul><%= link_to "#{order.find_user}", "/admin/users/#{order.user_id}" %></ul>
+    <p>Order ID: <%= order.id %></p>
+    <p>Created at: <%= order.created_at %></p>
+  <% end %>
+</article>

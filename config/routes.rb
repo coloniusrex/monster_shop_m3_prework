@@ -58,7 +58,9 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    get '/dashboard', to: "dashboard#show"
+    get '/', to: "dashboard#show"
+    get '/users/:id', to: 'dashboard#user'
+    patch '/:id', to: 'dashboard#update'
   end
 
   get "/logout", to: "sessions#logout"

@@ -67,7 +67,7 @@ RSpec.describe 'Site Navigation' do
 
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
-      visit "/admin/dashboard"
+      visit "/admin"
 
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
