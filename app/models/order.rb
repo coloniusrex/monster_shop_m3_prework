@@ -12,4 +12,8 @@ class Order <ApplicationRecord
   def find_user
     User.find(self.user_id).name
   end
+
+  def total_quantity
+    item_orders.sum(:quantity)
+  end
 end
