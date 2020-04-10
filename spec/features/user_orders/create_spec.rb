@@ -1,11 +1,5 @@
-# When I fill out all information on the new order page
-# And click on 'Create Order'
-# An order is created and saved in the database
-# And I am redirected to that order's show page with the following information:
-#
-# - Details of the order:
+require 'rails_helper'
 
-# - the date when the order was created
 RSpec.describe("Order Creation") do
   describe "When I check out from my cart" do
     before(:each) do
@@ -64,7 +58,6 @@ RSpec.describe("Order Creation") do
 
       within "#item-#{@paper.id}" do
         expect(page).to have_link(@paper.name)
-        expect(page).to have_link("#{@paper.merchant.name}")
         expect(page).to have_content("$#{@paper.price}")
         expect(page).to have_content("2")
         expect(page).to have_content("$40")
@@ -72,7 +65,6 @@ RSpec.describe("Order Creation") do
 
       within "#item-#{@tire.id}" do
         expect(page).to have_link(@tire.name)
-        expect(page).to have_link("#{@tire.merchant.name}")
         expect(page).to have_content("$#{@tire.price}")
         expect(page).to have_content("1")
         expect(page).to have_content("$100")
@@ -80,17 +72,16 @@ RSpec.describe("Order Creation") do
 
       within "#item-#{@pencil.id}" do
         expect(page).to have_link(@pencil.name)
-        expect(page).to have_link("#{@pencil.merchant.name}")
         expect(page).to have_content("$#{@pencil.price}")
         expect(page).to have_content("1")
         expect(page).to have_content("$2")
       end
 
       within "#grandtotal" do
-        expect(page).to have_content("Total: $142")
+        expect(page).to have_content("Total Cost: $142.00")
       end
 
-      within "#datecreated" do
+      within "#timestamps" do
         expect(page).to have_content(new_order.created_at)
       end
     end
