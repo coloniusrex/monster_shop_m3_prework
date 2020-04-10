@@ -53,6 +53,7 @@ RSpec.describe "As a registered user on the user profile orders page", type: :fe
 
     within "#order-id" do
       expect(page).to have_content("Order ID: #{order1.id}")
+      expect(page).to have_content("Order Status: #{order1.status}")
     end
   end
 end
