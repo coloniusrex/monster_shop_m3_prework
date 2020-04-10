@@ -33,8 +33,8 @@ Rails.application.routes.draw do
   resources :cart, only: [:update], as: 'cart_update'
 
   get "/orders/new", to: "orders#new"
-  post "/orders", to: "orders#create"
-  get "/orders/:id", to: "orders#show"
+  post "/orders", to: "orders#create" #old duplicate, see profile
+  get "/orders/:id", to: "orders#show" #old duplicate, see profile
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
@@ -44,6 +44,7 @@ Rails.application.routes.draw do
 
   get "/profile", to: "profiles#show"
   get "/profile/orders", to: 'user_orders#index'
+  get "/profile/orders/:id", to: 'user_orders#show'
   get "/profile/edit", to: "users#edit"
   patch "/profile", to: "users#update"
   get "/profile/edit_password", to: "users#password"

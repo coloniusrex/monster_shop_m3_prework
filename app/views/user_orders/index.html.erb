@@ -3,7 +3,7 @@
 <section class="orders-index">
   <% current_user.orders.each do |order| %>
     <section id="order-<%= order.id %>">
-      <p><%= link_to "#{order.id}", "/orders/#{order.id}" %></p>
+      <p><%= link_to "#{order.id}", "/profile/orders/#{order.id}" %></p>
       <p><%= order.created_at %></p>
       <p><%= order.updated_at %></p>
       <p><%= order.status %></p>
