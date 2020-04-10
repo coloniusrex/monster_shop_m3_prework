@@ -32,9 +32,9 @@ Rails.application.routes.draw do
   delete "/cart/:item_id", to: "cart#remove_item"
   resources :cart, only: [:update], as: 'cart_update'
 
-  get "/orders/new", to: "orders#new"
-  post "/orders", to: "orders#create" #old duplicate, see profile
-  get "/orders/:id", to: "orders#show" #old duplicate, see profile
+  get "/profile/orders/new", to: "user_orders#new"
+  post "/profile/orders", to: "user_orders#create"
+  # get "/orders/:id", to: "orders#show" #old duplicate, see profile
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"

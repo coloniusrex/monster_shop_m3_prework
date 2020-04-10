@@ -52,7 +52,7 @@
         or <%=link_to "register", "/register", method: :get %>  in order to checkout. </p>
     </article>
   <% else %>
-    <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
+    <p><%= link_to "Checkout", "profile/orders/new", method: :get %></p>
   <% end %>
 
 <% else %>
