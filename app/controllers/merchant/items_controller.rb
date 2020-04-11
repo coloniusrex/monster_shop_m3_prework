@@ -15,4 +15,10 @@ class Merchant::ItemsController < Merchant::BaseController
       redirect_to "/merchant/items"
   end
 
+  def destroy
+    item = Item.destroy(params[:id])
+    flash[:notice] = "#{item.name} has been removed from your inventory."
+    redirect_to "/merchant/items"
+  end
+
 end
