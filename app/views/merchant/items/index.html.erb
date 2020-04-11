@@ -1,0 +1,16 @@
+<h2><%= @merchant.name %>'s Items</h2>
+
+<section class="items-list">
+  <% @merchant.items.each do |item| %>
+    <section id="item-<%= item.id %>">
+      Name: <%= item.name %>
+      Description: <%= item.description %>
+      Price: $<%= item.price %>
+      <%= image_tag(item.image) %>
+      Active?: <%= item.active? %>
+      Inventory: <%= item.inventory %>
+      if item.active? ? <%= link_to "Deactivate Item", "/merchant/items/#{item.id}", method: :patch %> :
+        <%= link_to "Activate Item", "/merchant/items/#{item.id}", method: :patch %>
+    </section>
+  <% end  %>
+</section>
