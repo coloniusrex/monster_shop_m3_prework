@@ -21,4 +21,18 @@ class Admin::DashboardController < Admin::BaseController
   def merchant
     @merchant = Merchant.find(params[:id])
   end
+
+  def status
+    merchant = Merchant.find(params[:id])
+    if merchant.status == true
+      merchant.status = false
+      merchant.items_status(false)
+      flash[:notice] = "#{merchant.name} is now disabled."
+    else
+      merchant.status = true
+      merchant.items_status(true)
+      flash[:notice] = "#{merchant.name} is now enabled."
+    end
+      redirect_to '/admin/merchants'
+  end
 end

@@ -48,27 +48,52 @@ RSpec.describe 'Admin merchants index' do
 
     end
 
-    it "I can add this item to my cart" do
+    it "I can see a single merchant" do
       admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
       visit "/admin/merchants"
-
-
 
       within "#merchant-#{@mike.id}" do
         expect(page).to have_link(@mike.name)
         click_on @mike.name
       end
       expect(current_path).to eq("/admin/merchants/#{@mike.id}")
+
       expect(page).to have_content(@mike.name)
       expect(page).to have_content(@mike.address)
       expect(page).to have_content(@mike.city)
       expect(page).to have_content(@mike.state)
       expect(page).to have_content(@mike.zip)
+    end
 
+    it "I can revoke a merchant" do
+      admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
+      visit "/admin/merchants"
 
+      within "#merchant-#{@mike.id}" do
+        expect(page).to have_link('Disable')
+        click_on 'Disable'
+      end
+      expect(current_path).to eq("/admin/merchants")
+
+      expect(page).to have_content("#{@mike.name} is now disabled.")
+    end
+
+    it "I can revoke a merchant" do
+      admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit "/admin/merchants"
+
+      within "#merchant-#{@mike.id}" do
+        expect(page).to have_link('Disable')
+        click_on 'Disable'
+      end
+      visit "/items/#{@paper.id}"
+      expect(page).to have_content("Inactive")
     end
   end
 end

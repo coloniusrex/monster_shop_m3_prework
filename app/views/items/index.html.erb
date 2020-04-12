@@ -6,7 +6,7 @@
 <% end %>
 <section class="grid-container">
   <% @items.each do |item| %>
-    <% if item.active? %>
+    <% if item.status == true %>
     <section class = "grid-item" id= 'item-<%=item.id%>'>
       <p>Active</p>
       <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>

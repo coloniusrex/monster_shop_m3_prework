@@ -25,4 +25,13 @@ class Merchant <ApplicationRecord
     item_orders.distinct.joins(:order).pluck(:city)
   end
 
+  def items_status(boolean_value)
+    items.each do |item|
+      if !(boolean_value == false && item.status == false)
+        item.status = boolean_value
+        item.save
+      end
+    end
+  end
+
 end
