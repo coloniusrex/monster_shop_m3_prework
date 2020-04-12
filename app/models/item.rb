@@ -8,7 +8,8 @@ class Item <ApplicationRecord
                         :description,
                         :price,
                         :image,
-                        :inventory
+                        :inventory,
+                        :status
   validates_inclusion_of :active?, :in => [true, false]
   validates_numericality_of :price, greater_than: 0
 

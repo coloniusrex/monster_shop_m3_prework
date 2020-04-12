@@ -7,6 +7,7 @@ describe Merchant, type: :model do
     it { should validate_presence_of :city }
     it { should validate_presence_of :state }
     it { should validate_presence_of :zip }
+    it { should validate_presence_of :status }
   end
 
   describe "relationships" do
@@ -52,5 +53,9 @@ describe Merchant, type: :model do
       expect(@meg.distinct_cities).to eq(["Denver","Hershey"])
     end
 
+    it 'items_status' do
+      @meg.items_status(false)
+      expect(@tire.status).to eq(false)
+    end
   end
 end

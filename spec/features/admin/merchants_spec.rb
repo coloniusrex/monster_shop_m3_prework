@@ -17,10 +17,7 @@ RSpec.describe 'Admin merchants index' do
     it "I see all merchants in the system" do
       admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-
       visit "/admin/merchants"
-
-
 
       within "#merchant-#{@mike.id}" do
         expect(page).to have_link(@mike.name)
@@ -82,7 +79,7 @@ RSpec.describe 'Admin merchants index' do
       expect(page).to have_content("#{@mike.name} is now disabled.")
     end
 
-    it "I a revoke merchant items are disabled" do
+    it "I a merchants items are disabled when the merchant is disabled" do
       admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
@@ -92,7 +89,9 @@ RSpec.describe 'Admin merchants index' do
         expect(page).to have_link('Disable')
         click_on 'Disable'
       end
+
       visit "/items/#{@paper.id}"
+      binding.pry
       expect(page).to have_content("Inactive")
     end
 
@@ -112,9 +111,31 @@ RSpec.describe 'Admin merchants index' do
       end
 
       expect(current_path).to eq("/admin/merchants")
-
       expect(page).to have_content("#{@mike.name} is now enabled.")
 
+    end
+
+    it "I re-enable a merchant items that are disabled" do
+      admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit "/admin/merchants"
+
+      within "#merchant-#{@mike.id}" do
+        expect(page).to have_link('Disable')
+        click_on 'Disable'
+      end
+      visit "/items/#{@paper.id}"
+      expect(page).to have_content("Inactive")
+
+      visit "/admin/merchants"
+      within "#merchant-#{@mike.id}" do
+        expect(page).to have_link('Enable')
+        click_on 'Enable'
+      end
+
+      visit "/items/#{@paper.id}"
+      expect(page).to have_content("Active")
     end
   end
 end
