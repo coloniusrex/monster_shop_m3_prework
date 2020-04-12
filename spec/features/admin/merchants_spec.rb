@@ -15,11 +15,15 @@ RSpec.describe 'Admin merchants index' do
 
 
     it "I can add this item to my cart" do
+      admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
       visit "/admin/merchants"
+      
 
 
       within "#merchant-#{@mike.id}" do
-        expect(page).to have_content(@mike.name)
+        expect(page).to have_link(@mike.name)
         expect(page).to have_content(@mike.address)
         expect(page).to have_content(@mike.city)
         expect(page).to have_content(@mike.state)
@@ -27,7 +31,7 @@ RSpec.describe 'Admin merchants index' do
       end
 
       within "#merchant-#{@bike_shop.id}" do
-        expect(page).to have_content(@bike_shop.name)
+        expect(page).to have_link(@bike_shop.name)
         expect(page).to have_content(@bike_shop.address)
         expect(page).to have_content(@bike_shop.city)
         expect(page).to have_content(@bike_shop.state)
@@ -35,7 +39,7 @@ RSpec.describe 'Admin merchants index' do
       end
 
       within "#merchant-#{@dog_shop.id}" do
-        expect(page).to have_content(@dog_shop.name)
+        expect(page).to have_link(@dog_shop.name)
         expect(page).to have_content(@dog_shop.address)
         expect(page).to have_content(@dog_shop.city)
         expect(page).to have_content(@dog_shop.state)

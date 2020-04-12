@@ -1,0 +1,10 @@
+<h1>Admin's merchants index </h1>
+<% @merchants.each do |merchant| %>
+<article id="merchant-<%= merchant.id%>">
+  <h2><%=link_to merchant.name, "/admin/#{merchant.id}"%></h2>
+  <p><%=merchant.address%></p>
+  <p><%=merchant.city%></p>
+  <p><%=merchant.state%></p>
+  <p><%=merchant.zip%></p>
+</article>
+<%end%>

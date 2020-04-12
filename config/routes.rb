@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     get '/', to: "dashboard#show"
     get '/users/:id', to: 'dashboard#user'
     patch '/:id', to: 'dashboard#update'
+    get '/merchants', to: "dashboard#merchants"
   end
 
   get "/logout", to: "sessions#logout"

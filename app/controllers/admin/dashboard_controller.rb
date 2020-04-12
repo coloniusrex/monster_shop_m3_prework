@@ -13,4 +13,8 @@ class Admin::DashboardController < Admin::BaseController
     order.save
     redirect_to '/admin'
   end
+
+  def merchants
+    @merchants = Merchant.all
+  end
 end
