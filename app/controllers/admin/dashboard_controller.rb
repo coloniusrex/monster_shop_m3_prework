@@ -33,6 +33,7 @@ class Admin::DashboardController < Admin::BaseController
       merchant.items_status(true)
       flash[:notice] = "#{merchant.name} is now enabled."
     end
-      redirect_to '/admin/merchants'
+    merchant.save
+    redirect_to '/admin/merchants'
   end
 end

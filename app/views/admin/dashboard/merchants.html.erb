@@ -6,6 +6,10 @@
   <p><%=merchant.city%></p>
   <p><%=merchant.state%></p>
   <p><%=merchant.zip%></p>
-  <ul><%= link_to "Disable", "/admin/merchants/#{merchant.id}", method: :patch%>
-</article>
+  <% if merchant.status == true %>
+    <ul><%= link_to "Disable", "/admin/merchants/#{merchant.id}", method: :patch%>
+  <% else %>
+    <ul><%= link_to "Enable", "/admin/merchants/#{merchant.id}", method: :patch%>
+  <% end %>
+  </article>
 <%end%>

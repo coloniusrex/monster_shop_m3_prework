@@ -82,7 +82,7 @@ RSpec.describe 'Admin merchants index' do
       expect(page).to have_content("#{@mike.name} is now disabled.")
     end
 
-    it "I can revoke a merchant" do
+    it "I a revoke merchant items are disabled" do
       admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
@@ -94,6 +94,27 @@ RSpec.describe 'Admin merchants index' do
       end
       visit "/items/#{@paper.id}"
       expect(page).to have_content("Inactive")
+    end
+
+    it "I an enable a merchant" do
+      admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit "/admin/merchants"
+
+      within "#merchant-#{@mike.id}" do
+        expect(page).to have_link('Disable')
+        click_on 'Disable'
+      end
+      within "#merchant-#{@mike.id}" do
+        expect(page).to have_link('Enable')
+        click_on 'Enable'
+      end
+
+      expect(current_path).to eq("/admin/merchants")
+
+      expect(page).to have_content("#{@mike.name} is now enabled.")
+
     end
   end
 end
