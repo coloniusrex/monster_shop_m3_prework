@@ -6,8 +6,7 @@ class Merchant <ApplicationRecord
                         :address,
                         :city,
                         :state,
-                        :zip,
-                        :status
+                        :zip
 
 
   def no_orders?

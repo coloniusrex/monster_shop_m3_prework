@@ -89,9 +89,8 @@ RSpec.describe 'Admin merchants index' do
         expect(page).to have_link('Disable')
         click_on 'Disable'
       end
-
+      
       visit "/items/#{@paper.id}"
-      binding.pry
       expect(page).to have_content("Inactive")
     end
 
@@ -105,6 +104,7 @@ RSpec.describe 'Admin merchants index' do
         expect(page).to have_link('Disable')
         click_on 'Disable'
       end
+
       within "#merchant-#{@mike.id}" do
         expect(page).to have_link('Enable')
         click_on 'Enable'
