@@ -18,10 +18,6 @@ class Admin::DashboardController < Admin::BaseController
     @merchants = Merchant.all
   end
 
-  def merchant
-    @merchant = Merchant.find(params[:id])
-  end
-
   def status
     merchant = Merchant.find(params[:id])
     if merchant.status == true
