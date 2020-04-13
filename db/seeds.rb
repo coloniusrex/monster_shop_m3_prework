@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 ItemOrder.destroy_all
 Merchant.destroy_all
 Item.destroy_all
@@ -37,8 +29,15 @@ user = User.create(name: "User", address: "123 Test St", city: "Denver", state: 
 merchant = User.create(name: "Merchant", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "merchant@example.com", password: "password_merchant", role: 2)
 admin = User.create(name: "Admin", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "admin@example.com", password: "password_admin", role: 3)
 
-order1 = user.orders.create(id: 3, name: "Colin", address: "400 Wash", city: "Denver", state: "CO", zip: 80203)
+merchant_1 = User.create(name: "Merchant", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "merchant@example.com", password: "merchant", role: 2)
+merchant_2 = User.create(name: "Merchant", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "merchant2@example.com", password: "merchant", role: 2)
 
+#employees
+bike_shop.add_employee(merchant_1)
+dog_shop.add_employee(merchant_2)
+
+#orders
+order1 = user.orders.create(id: 3, name: "Colin", address: "400 Wash", city: "Denver", state: "CO", zip: 80203)
 order1.item_orders.create(order_id: order1.id, item: pull_toy, quantity: 1, price: pull_toy.price)
 order1.item_orders.create(order_id: order1.id, item: dog_bone, quantity: 2, price: dog_bone.price)
 order1.item_orders.create(order_id: order1.id, item: tire, quantity: 3, price: tire.price)

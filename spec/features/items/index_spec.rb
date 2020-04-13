@@ -59,6 +59,7 @@ RSpec.describe "Items Index Page" do
     it "As any kind of user on the system, I can see all items except disabled items" do
       user = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 1)
       merchant = User.create(name: "Colin", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "456@example.com", password: "password", role: 2)
+      @meg.add_employee(merchant)
       admin = User.create(name: "Max", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "789@example.com", password: "password", role: 3)
 
       visit "/items"

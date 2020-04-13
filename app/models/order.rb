@@ -16,4 +16,20 @@ class Order <ApplicationRecord
   def total_quantity
     item_orders.sum(:quantity)
   end
+
+  def merchant_total_items(merchant)
+    my_items = items.where(merchant_id:merchant.id)
+    item_orders.where(item_id:my_items).sum(:quantity)
+  end
+
+  def merchant_total_cost(merchant)
+    my_items = items.where(merchant_id:merchant.id)
+    my_item_orders = item_orders.where(item_id:my_items)
+    total = 0
+    my_item_orders.each do |item_order|
+      total += item_order.subtotal
+    end
+    total
+  end
+
 end

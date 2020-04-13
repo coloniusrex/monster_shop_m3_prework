@@ -15,6 +15,9 @@ describe "Log in" do
 
   it "can log in as a merchant user" do
     user = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 2)
+    bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 23137)
+    bike_shop.add_employee(user)
+
     visit '/login'
     fill_in :email, with: user.email
     fill_in :password, with: user.password
@@ -22,7 +25,7 @@ describe "Log in" do
     click_on 'Login'
 
     expect(page).to have_content("You have successfully logged in.")
-    expect(current_path).to eq('/merchant/dashboard')
+    expect(current_path).to eq('/merchant')
   end
 
   it "can log in as an admin user" do
@@ -62,6 +65,8 @@ describe "Log in" do
 
   it "I will be redirected if I am logged in" do
     user = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 2)
+    bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 23137)
+    bike_shop.add_employee(user)
     visit '/login'
     fill_in :email, with: user.email
     fill_in :password, with: user.password
@@ -70,7 +75,7 @@ describe "Log in" do
 
     visit '/login'
     expect(page).to have_content("You're already logged in.")
-    expect(current_path).to eq('/merchant/dashboard')
+    expect(current_path).to eq('/merchant')
   end
 
   it "I will be redirected if I am logged in" do

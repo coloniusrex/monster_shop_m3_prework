@@ -1,1 +1,18 @@
 <h1>Welcome</h1>
+<section class='merchant-info'>
+<h3><%= @merchant.name %></h3>
+<p><%= @merchant.address %></p>
+<p><%= @merchant.city %></p>
+<p><%= @merchant.state %></p>
+<p><%= @merchant.zip %></p>
+</section>
+<section class='merchant-orders'>
+  <% @merchant.orders.distinct.each do |order| %>
+    <section id='order-<%= order.id %>'>
+      <p>Order ID: <%= order.id %></p>
+      <p>Created: <%= order.created_at %></p>
+      <p>Merchant Items Quantity: <%= order.merchant_total_items(@merchant) %></p>
+      <p>Merchant Items Cost: <%= number_to_currency(order.merchant_total_cost(@merchant)) %></p>
+    </section>
+  <% end %>
+</section>

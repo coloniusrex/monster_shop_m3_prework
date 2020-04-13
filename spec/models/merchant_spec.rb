@@ -10,7 +10,8 @@ describe Merchant, type: :model do
   end
 
   describe "relationships" do
-    it {should have_many :items}
+    it { should have_many :items }
+    it { should have_many :users }
   end
 
   describe 'instance methods' do
@@ -52,9 +53,20 @@ describe Merchant, type: :model do
       expect(@meg.distinct_cities).to eq(["Denver","Hershey"])
     end
 
+
     it 'items_status' do
       @meg.items_status(false)
       expect(@tire.status).to eq(false)
     end
+
+    it "#add_employee associates a user with the merchant" do
+      mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      merchant_1 = User.create(name: "Mike Dao", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "thedao@example.com", password: "password", role: 2)
+
+      expect(mike.users).to eq([])
+      mike.add_employee(merchant_1)
+      expect(mike.users).to eq([merchant_1])
+    end
+
   end
 end
