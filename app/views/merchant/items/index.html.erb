@@ -8,9 +8,9 @@
       <li>Description: <%= item.description %></li>
       <li>Price: $<%= item.price %></li>
       <%= image_tag(item.image) %>
-      <li>Active?: <%= item.active? %></li>
+      <li>Active?: <%= item.status %></li>
       <li>Inventory: <%= item.inventory %></li>
-      <% if item.active? %>
+      <% if item.status == true %>
         <%= link_to "Deactivate Item", "/merchant/items/#{item.id}", method: :patch %>
       <% else %>
         <%= link_to "Activate Item", "/merchant/items/#{item.id}", method: :patch %>

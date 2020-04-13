@@ -10,7 +10,7 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
     @rim = @bike_shop.items.create(name: "Rim", description: "Strong spokes.", price: 100, image: "https://cdn10.bigcommerce.com/s-6w6qcuo4/product_images/attribute_rule_images/19719_zoom_1516397191.jpg", inventory: 12)
     @dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
     @pull_toy = @dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
-    @dog_bone = @dog_shop.items.create(name: "Dog Bone", description: "Bonified fun!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+    @dog_bone = @dog_shop.items.create(name: "Dog Bone", description: "Bonified fun!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", status: false, inventory: 21)
     @order1 = @user.orders.create(id: 3, name: "Colin", address: "400 Wash", city: "Denver", state: "CO", zip: 80203)
     @order1.item_orders.create(order_id: @order1.id, item: @tire, quantity: 1, price: @tire.price)
     @order1.item_orders.create(order_id: @order1.id, item: @rim, quantity: 2, price: @rim.price)
