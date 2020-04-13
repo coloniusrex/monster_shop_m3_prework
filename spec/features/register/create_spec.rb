@@ -83,7 +83,7 @@ describe "registration" do
 
     click_on "Submit"
 
-    expect(page).to have_content("Unable to create account: Passwords don't match.")
+    expect(page).to have_content("Passwords don't match.")
 
   end
 end
