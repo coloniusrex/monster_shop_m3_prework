@@ -27,7 +27,16 @@ class Merchant <ApplicationRecord
     item_orders.distinct.joins(:order).pluck(:city)
   end
 
+
+  def items_status(boolean_value)
+    items.each do |item|
+      item.status = boolean_value
+      item.save
+    end
+  end
+
   def add_employee(user)
     users << user
   end
+
 end

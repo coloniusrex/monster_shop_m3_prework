@@ -6,7 +6,7 @@ describe Merchant, type: :model do
     it { should validate_presence_of :address }
     it { should validate_presence_of :city }
     it { should validate_presence_of :state }
-    it { should validate_presence_of :zip }
+    it { should validate_presence_of :zip }  
   end
 
   describe "relationships" do
@@ -51,6 +51,12 @@ describe Merchant, type: :model do
       order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
 
       expect(@meg.distinct_cities).to eq(["Denver","Hershey"])
+    end
+
+
+    it 'items_status' do
+      @meg.items_status(false)
+      expect(@tire.status).to eq(false)
     end
 
     it "#add_employee associates a user with the merchant" do

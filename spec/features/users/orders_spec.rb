@@ -21,7 +21,7 @@ describe "user orders" do
 
     expect(current_path).to eq("/profile")
     expect(page).to have_content("Your order has been canceled.")
-    expect(order_1.reload.status).to eq("Canceled")
+    expect(order_1.reload.status).to eq("Cancelled")
     expect(item_order_1.reload.status).to eq("Unfulfilled")
     expect(tire.reload.inventory).to eq(2)
     expect(pull_toy.reload.inventory).to eq(3)
