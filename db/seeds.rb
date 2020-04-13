@@ -49,3 +49,19 @@ order1.item_orders.create(order_id: order1.id, item: kong_toy, quantity: 7, pric
 order1.item_orders.create(order_id: order1.id, item: tire_parts, quantity: 8, price: tire_parts.price)
 order1.item_orders.create(order_id: order1.id, item: axle, quantity: 9, price: axle.price)
 order1.item_orders.create(order_id: order1.id, item: seat, quantity: 10, price: seat.price)
+
+order2 = user.orders.create(id: 4, name: "Colin", address: "400 Wash", city: "Denver", state: "CO", zip: 80203, status: "Shipped")
+
+order2.item_orders.create(order_id: order1.id, item: pull_toy, quantity: 1, price: pull_toy.price)
+order2.item_orders.create(order_id: order1.id, item: dog_bone, quantity: 2, price: dog_bone.price)
+order2.item_orders.create(order_id: order1.id, item: tire, quantity: 3, price: tire.price)
+order2.item_orders.create(order_id: order1.id, item: rim, quantity: 4, price: rim.price)
+order2.item_orders.create(order_id: order1.id, item: chew_rope, quantity: 5, price: chew_rope.price)
+
+order3 = user.orders.create(id: 5, name: "Colin", address: "400 Wash", city: "Denver", state: "CO", zip: 80203, status: "Packaged")
+
+order3.item_orders.create(order_id: order1.id, item: pull_toy, quantity: 1, price: pull_toy.price)
+order3.item_orders.create(order_id: order1.id, item: dog_bone, quantity: 2, price: dog_bone.price)
+order3.item_orders.create(order_id: order1.id, item: tire, quantity: 3, price: tire.price)
+order3.item_orders.create(order_id: order1.id, item: axle, quantity: 9, price: axle.price)
+order3.item_orders.create(order_id: order1.id, item: seat, quantity: 10, price: seat.price)
