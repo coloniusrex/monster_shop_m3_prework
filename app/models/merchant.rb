@@ -1,6 +1,8 @@
 class Merchant <ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :item_orders, through: :items
+  has_many :orders, through: :item_orders
+  has_many :users
 
   validates_presence_of :name,
                         :address,
@@ -25,4 +27,7 @@ class Merchant <ApplicationRecord
     item_orders.distinct.joins(:order).pluck(:city)
   end
 
+  def add_employee(user)
+    users << user
+  end
 end

@@ -41,5 +41,15 @@ describe Order, type: :model do
     it 'total_quantity' do
       expect(@order_1.total_quantity).to eq(5)
     end
+
+    it 'merchant_total_items' do
+      expect(@order_1.merchant_total_items(@brian)).to eql(3)
+      expect(@order_1.merchant_total_items(@meg)).to eql(2)
+    end
+
+    it 'merchant_total_cost' do
+      expect(@order_1.merchant_total_cost(@brian)).to eql(30.0)
+      expect(@order_1.merchant_total_cost(@meg)).to eql(200.0)
+    end
   end
 end

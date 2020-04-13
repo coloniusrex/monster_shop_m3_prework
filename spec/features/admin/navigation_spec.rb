@@ -23,13 +23,26 @@ RSpec.describe 'Site Navigation' do
       admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
-      visit "/merchant/dashboard"
+      visit "/merchant"
 
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
       visit "/cart"
 
       expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
+
+    it "I can click on the merchants name on the merchant index page, and I am taken to the admin/merchant show page" do
+      bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 23137)
+      admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit '/merchants'
+
+      click_on "Brian's Bike Shop"
+
+      expect(current_path).to eql("/admin/merchants/#{bike_shop.id}")
+
     end
   end
 end

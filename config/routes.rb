@@ -54,13 +54,19 @@ Rails.application.routes.draw do
   patch "/profile/orders/:order_id/cancel", to: "user_orders#cancel"
 
   namespace :merchant do
-    get '/dashboard', to: "dashboard#show"
+    get '/', to: "dashboard#show"
+    get "/items", to: "items#index"
+    patch "items/:id", to: "items#update_active"
+    get "/items/add-item", to: "items#new"
+    post "/items", to: "items#add_item"
+    resources :items, only: [:destroy]
   end
 
   namespace :admin do
     get '/', to: "dashboard#show"
     get '/users/:id', to: 'dashboard#user'
     patch '/:id', to: 'dashboard#update'
+    get '/merchants/:id', to: 'merchants#show'
   end
 
   get "/logout", to: "sessions#logout"

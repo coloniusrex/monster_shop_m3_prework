@@ -1,0 +1,24 @@
+<h2><%= @merchant.name %>'s Items</h2>
+
+<%= link_to "Add Item", "/merchant/items/add-item" %><br><br>
+<section class="items-list grid-container">
+  <% @merchant.items.each do |item| %>
+    <section id="item-<%= item.id %>" class="grid-item">
+      <li>Name: <%= item.name %></li>
+      <li>Description: <%= item.description %></li>
+      <li>Price: $<%= item.price %></li>
+      <%= image_tag(item.image) %>
+      <li>Active?: <%= item.active? %></li>
+      <li>Inventory: <%= item.inventory %></li>
+      <% if item.active? %>
+        <%= link_to "Deactivate Item", "/merchant/items/#{item.id}", method: :patch %>
+      <% else %>
+        <%= link_to "Activate Item", "/merchant/items/#{item.id}", method: :patch %>
+      <% end  %>
+
+      <% if item.no_orders? %>
+        <%= link_to "Delete Item", "/merchant/items/#{item.id}", method: :delete %>
+      <% end  %>
+    </section>
+  <% end  %>
+</section>
