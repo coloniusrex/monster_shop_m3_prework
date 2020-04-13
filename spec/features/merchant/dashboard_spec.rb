@@ -63,7 +63,6 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
     click_on 'Merchant Items'
 
     expect(current_path).to eql('/merchant/items')
-    save_and_open_page
   end
 end
 
