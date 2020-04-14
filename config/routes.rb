@@ -56,7 +56,9 @@ Rails.application.routes.draw do
   namespace :merchant do
     get '/', to: "dashboard#show"
     get "/items", to: "items#index"
-    patch "items/:id", to: "items#update_active"
+    get 'items/:id/edit', to: "items#edit"
+    put "items/:id", to: "items#update_active"
+    patch "items/:id", to: "items#update"
     get "/items/add-item", to: "items#new"
     post "/items", to: "items#add_item"
     resources :items, only: [:destroy]

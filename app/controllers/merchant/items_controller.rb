@@ -8,6 +8,23 @@ class Merchant::ItemsController < Merchant::BaseController
     @merchant = Merchant.find(current_user[:merchant_id])
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      @item.save
+      flash[:notice] = "Item Succesfully Updated"
+      redirect_to "/merchant/items"
+    else
+      flash[:error] = "Incorrectly filled out #{@item.changed_attributes.keys.join(", ")}, try again."
+      @item.restore_attributes
+      render :edit
+    end
+  end
+
   def add_item
     @merchant = Merchant.find(current_user[:merchant_id])
     item = @merchant.items.new(item_params)
@@ -42,7 +59,7 @@ class Merchant::ItemsController < Merchant::BaseController
 
   def item_params
     params[:image] = "https://www.thesun.co.uk/wp-content/uploads/2018/11/cat-2.png" unless params[:image] != ""
-    params.permit(:name, :description, :price, :image, :inventory)
+    params.permit(:name,:description,:price,:inventory,:image)
   end
 
 end
