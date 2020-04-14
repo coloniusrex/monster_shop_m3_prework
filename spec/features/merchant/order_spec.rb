@@ -51,6 +51,13 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
 
     visit "/profile/orders/#{@order2.id}"
 
+    within "#item-#{@rim.id}" do
+      expect(page).to have_link(@rim.name)
+      expect(page).to have_content("#{@rim.description}")
+      expect(page).to have_content("0")
+      expect(page).to have_content("$#{@rim.price}")
+      expect(page).to have_content("$0")
+    end
 
     within(".shipping-address") do
       expect(page).to have_content("Packaged")
