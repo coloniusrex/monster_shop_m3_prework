@@ -15,7 +15,7 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
 
     @order1 = @user.orders.create(id: 3, name: "Colin", address: "400 Wash", city: "Denver", state: "CO", zip: 80203)
     @order1.item_orders.create(order_id: @order1.id, item: @tire, quantity: 1, price: @tire.price)
-    @order1.item_orders.create(order_id: @order1.id, item: @rim, quantity: 2, price: @rim.price)
+    @order1.item_orders.create(order_id: @order1.id, item: @rim, quantity: 200, price: @rim.price)
     @order1.item_orders.create(order_id: @order1.id, item: @pull_toy, quantity: 2, price: @pull_toy.price)
 
     @order2 = @user.orders.create(id: 5, name: "Colin", address: "400 Wash", city: "Denver", state: "CO", zip: 80203)
@@ -34,7 +34,7 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
       expect(page).to have_link(@order2.id)
       click_on "Order ID: #{@order2.id }"
     end
-    
+
     expect(current_path).to eql("/merchant/#{@order2.id }")
     expect(@order2.status).to eq("Pending")
 
@@ -56,4 +56,22 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
       expect(page).to have_content("Packaged")
     end
   end
+
+    it "I can  not click a link to fulfil an order" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
+
+      visit '/merchant'
+
+      within "#order-#{@order1.id}" do
+        expect(page).to have_link(@order1.id)
+        click_on "Order ID: #{@order1.id }"
+      end
+
+      expect(current_path).to eql("/merchant/#{@order1.id }")
+
+      within "#item-#{@rim.id}" do
+        expect(page).to_not have_link("Fulfil")
+        expect(page).to have_content("Item does not have enough in stock to fulfil order.")
+      end
+    end
 end

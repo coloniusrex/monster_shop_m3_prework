@@ -5,7 +5,7 @@
   <% if item.can_be_fulfilled(@order.amount_wanted(item.id)) == true %>
     <ul><%= link_to "Fulfil", "/merchant/#{@order.id}/#{item.id}", method: :patch%>
   <% else %>
-    <p> Item does not have enought stock to fulfil order </p>
+    <p> Item does not have enough in stock to fulfil order. </p>
   <% end %>
 
 </article>
