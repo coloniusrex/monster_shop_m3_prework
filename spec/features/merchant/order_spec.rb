@@ -32,10 +32,10 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
 
     within "#order-#{@order2.id}" do
       expect(page).to have_link(@order2.id)
-      click_on "Order ID: #{@order2.id }"
+      click_on "#{@order2.id }"
     end
 
-    expect(current_path).to eql("/merchant/#{@order2.id }")
+    expect(current_path).to eql("/merchant/orders/#{@order2.id }")
     expect(@order2.status).to eq("Pending")
 
     within "#item-#{@rim.id}" do
@@ -43,9 +43,6 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
       click_on "Fulfil"
     end
     expect(page).to have_content("#{@rim.name} inventory has been subtract to fulfil the order.")
-    within "#item-#{@rim.id}" do
-      expect(page).to have_content(11)
-    end
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
@@ -71,10 +68,10 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
 
       within "#order-#{@order1.id}" do
         expect(page).to have_link(@order1.id)
-        click_on "Order ID: #{@order1.id }"
+        click_on "#{@order1.id }"
       end
 
-      expect(current_path).to eql("/merchant/#{@order1.id }")
+      expect(current_path).to eql("/merchant/orders/#{@order1.id }")
 
       within "#item-#{@rim.id}" do
         expect(page).to_not have_link("Fulfil")

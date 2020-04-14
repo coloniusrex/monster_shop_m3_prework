@@ -1,13 +1,21 @@
-<% @order.current_merchant_items(current_user.merchant_id).each do |item| %>
-<<article id="item-<%= item.id %>">
-  <%= item.name %>
-  <%= item.inventory %>
-  <% if item.can_be_fulfilled(@order.amount_wanted(item.id)) == true %>
-    <ul><%= link_to "Fulfil", "/merchant/#{@order.id}/#{item.id}", method: :patch%>
-  <% else %>
-    <p> Item does not have enough in stock to fulfil order. </p>
-  <% end %>
 
-</article>
-
-<% end %>
+<h2>Order Number (#<%= @order.id %>)</h2>
+<section class="grid-container">
+  <section class="grid-item">
+    <%= "Recipient: #{@order.name}" %><br>
+    <%= "Address: #{@order.address}, #{@order.city}, #{@order.state} #{@order.zip}" %><br>
+    <% @order.merchant_specific_items(current_user).each do |item_order| %>
+      <%= image_tag item_order.item.image %><br>
+      Product: <%= link_to item_order.item.name, "/items/#{item_order.item.id}" %><br>
+      Price: <%= number_to_currency(item_order.price) %><br>
+      Quantity: <%= item_order.quantity %><br>
+      <article id="item-<%=item_order.item.id%>">
+        <% if item_order.item.can_be_fulfilled(@order.amount_wanted(item_order.item.id)) == true %>
+          <ul><%= link_to "Fulfil", "/merchant/#{@order.id}/#{item_order.item.id}", method: :patch%>
+        <% else %>
+          <p> Item does not have enough in stock to fulfil order. </p>
+        <% end %>
+      </article>
+    <% end  %>
+  </section>
+</section>

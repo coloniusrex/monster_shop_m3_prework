@@ -19,18 +19,18 @@
         <%= link_to "Home", "/" %>
         <%= link_to "All Merchants", "/merchants"%>
         <%= link_to "All Items", "/items"%>
-      <% if current_user.role == 0 %>
+      <% if current_user.visitor? %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <%= link_to "Register", "/register" %>
         <%= link_to "Log-In", "/login" %>
-      <% elsif current_user.role == 1 %>
+      <% elsif current_user.basic? %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <%= link_to "Profile", "/profile" %>
         <section class="topnav-right">
           <%= link_to "Logged in as: #{current_user.name}", "/profile" %>
           <%= link_to "Logout", "/logout" %>
         </section>
-      <% elsif current_user.role == 2 %>
+      <% elsif current_user.merchant? %>
         <%= link_to "Merchant Dashboard", "/merchant" %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <%= link_to "Profile", "/profile" %>
@@ -39,7 +39,7 @@
           <%= link_to "Logged in as: #{current_user.name}", "/profile" %>
           <%= link_to "Logout", "/logout" %>
         </section>
-      <% elsif current_user.role == 3 %>
+      <% elsif current_user.admin? %>
         <%= link_to "Admin Dashboard", "/admin" %>
         <%= link_to "All Users", "/admin/users" %>
         <%= link_to "Profile", "/profile" %>

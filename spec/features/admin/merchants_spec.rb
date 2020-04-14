@@ -12,8 +12,6 @@ RSpec.describe 'Admin merchants index' do
 
     end
 
-
-
     it "I see all merchants in the system" do
       admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
@@ -89,7 +87,7 @@ RSpec.describe 'Admin merchants index' do
         expect(page).to have_link('Disable')
         click_on 'Disable'
       end
-      
+
       visit "/items/#{@paper.id}"
       expect(page).to have_content("Inactive")
     end

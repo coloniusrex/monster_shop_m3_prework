@@ -1,9 +1,6 @@
 class Merchant::OrdersController < Merchant::BaseController
 
 
-  def show
-    @order = Order.find(params[:order_id])
-  end
 
   def update
     item = Item.find(params[:item_id])
@@ -15,7 +12,12 @@ class Merchant::OrdersController < Merchant::BaseController
     item_order[0].save
     if item.save
       flash[:notice] = "#{item.name} inventory has been subtract to fulfil the order."
-      redirect_to "/merchant/#{order.id}"
+      redirect_to "/merchant/orders/#{order.id}"
     end
   end
+
+  def show
+    @order = Order.find(params[:id])
+  end
+
 end
