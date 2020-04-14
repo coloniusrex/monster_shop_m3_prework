@@ -60,11 +60,8 @@ describe Order, type: :model do
     end
 
     it "#merchant_specific_items - returns only items that merchant sells in order" do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
-
       expect(@order_1.item_orders).to eq([@item_order_1, @item_order_2])
       expect(@order_1.merchant_specific_items(@merchant_user)).to eq([@item_order_1])
-
     end
   end
 end
