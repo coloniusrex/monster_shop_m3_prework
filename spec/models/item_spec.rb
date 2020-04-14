@@ -40,6 +40,10 @@ describe Item, type: :model do
       expect(bottom_three).to eq([@review_3,@review_4,@review_5])
     end
 
+    it 'can_be_fulfilled' do
+      expect(@chain.can_be_fulfilled(4)).to eq(true)
+    end
+
     it 'no orders' do
       expect(@chain.no_orders?).to eq(true)
       user = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 1)

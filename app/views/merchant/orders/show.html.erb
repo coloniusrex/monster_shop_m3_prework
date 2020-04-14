@@ -1,8 +1,13 @@
 <% @order.current_merchant_items(current_user.merchant_id).each do |item| %>
+<<article id="item-<%= item.id %>">
   <%= item.name %>
+  <%= item.inventory %>
   <% if item.can_be_fulfilled(@order.amount_wanted(item.id)) == true %>
     <ul><%= link_to "Fulfil", "/merchant/#{@order.id}/#{item.id}", method: :patch%>
   <% else %>
     <p> Item does not have enought stock to fulfil order </p>
   <% end %>
+
+</article>
+
 <% end %>

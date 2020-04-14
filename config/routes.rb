@@ -60,6 +60,7 @@ Rails.application.routes.draw do
     get "/items/add-item", to: "items#new"
     post "/items", to: "items#add_item"
     get "/:order_id", to: "orders#show"
+    patch '/:order_id/:item_id', to: "orders#update"
     resources :items, only: [:destroy]
   end
 

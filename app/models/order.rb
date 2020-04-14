@@ -37,8 +37,8 @@ class Order <ApplicationRecord
   end
 
   def amount_wanted(item)
-    amount = item_orders.where(item_id:item)
-    amount.quantity
+    item_order = item_orders.where(item_id:item)
+    item_order[0].quantity
   end
 
 end

@@ -33,6 +33,6 @@ class Item <ApplicationRecord
   end
 
   def can_be_fulfilled(amount_wanted)
-    amount_wanted > :inventory
+    amount_wanted < inventory
   end
 end
