@@ -31,4 +31,8 @@ class Item <ApplicationRecord
   def self.least_popular
     select('items.*, SUM(quantity) as total_quantity').joins(:item_orders).group('items.id').order('total_quantity').limit(5)
   end
+
+  def can_be_fulfilled(amount_wanted)
+    amount_wanted < inventory
+  end
 end
