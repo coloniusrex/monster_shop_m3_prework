@@ -47,8 +47,8 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
         expect(page).to have_content("Merchant Items Cost: $300.00")
       end
       within "#order-#{@order2.id}" do
-        expect(page).to have_content(@order1.id)
-        expect(page).to have_content(@order1.created_at)
+        expect(page).to have_content(@order2.id)
+        expect(page).to have_content(@order2.created_at)
         expect(page).to have_content("Merchant Items Quantity: 1")
         expect(page).to have_content("Merchant Items Cost: $100.00")
       end
