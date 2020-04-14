@@ -42,11 +42,11 @@ RSpec.describe 'Site Navigation' do
       admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
-      visit '/merchants'
+      visit 'admin/merchants'
 
       click_on "Brian's Bike Shop"
 
-      expect(current_path).to eql("/merchants/#{bike_shop.id}")
+      expect(current_path).to eql("/admin/merchants/#{bike_shop.id}")
 
     end
   end
