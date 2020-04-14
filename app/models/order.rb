@@ -32,4 +32,13 @@ class Order <ApplicationRecord
     total
   end
 
+  def current_merchant_items(merchant)
+    items.where(merchant_id:merchant)
+  end
+
+  def amount_wanted(item)
+    amount = item_orders.where(item_id:item)
+    amount.quantity
+  end
+
 end

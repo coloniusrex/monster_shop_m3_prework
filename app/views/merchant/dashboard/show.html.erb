@@ -9,7 +9,7 @@
 <section class='merchant-orders'>
   <% @merchant.orders.distinct.each do |order| %>
     <section id='order-<%= order.id %>'>
-      <p>Order ID: <%= order.id %></p>
+      <ul><%= link_to "Order ID: #{order.id }", "/merchant/#{order.id}" %></ul>
       <p>Created: <%= order.created_at %></p>
       <p>Merchant Items Quantity: <%= order.merchant_total_items(@merchant) %></p>
       <p>Merchant Items Cost: <%= number_to_currency(order.merchant_total_cost(@merchant)) %></p>

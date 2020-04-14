@@ -20,64 +20,25 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
     @bike_shop.add_employee(@merchant_user)
 
   end
-  it "I see the name and full address of the merchant I am associated with" do
+
+
+
+  it "I can click a link to fulfil an order" do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
 
-    visit "/merchant"
+    visit '/merchant'
 
-    within '.merchant-info' do
-      expect(page).to have_content(@bike_shop.name)
-      expect(page).to have_content(@bike_shop.address)
-      expect(page).to have_content(@bike_shop.city)
-      expect(page).to have_content(@bike_shop.state)
-      expect(page).to have_content(@bike_shop.zip)
+    within "#order-#{@order1.id}" do
+      expect(page).to have_link(@order1.id)
+      click_on "Order ID: #{@order1.id }"
     end
-  end
-
-  it "I see a list of any pending orders for items I sell, each order with an id, date made, total qty and grandtotal" do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
-
-    visit '/merchant'
-
-    within '.merchant-orders' do
-      within "#order-#{@order1.id}" do
-        expect(page).to have_content(@order1.id)
-        expect(page).to have_content(@order1.created_at)
-        expect(page).to have_content("Merchant Items Quantity: 3")
-        expect(page).to have_content("Merchant Items Cost: $300.00")
-      end
-      within "#order-#{@order2.id}" do
-        expect(page).to have_content(@order2.id)
-        expect(page).to have_content(@order2.created_at)
-        expect(page).to have_content("Merchant Items Quantity: 1")
-        expect(page).to have_content("Merchant Items Cost: $100.00")
-      end
+    expect(current_path).to eql("/merchant/#{@order1.id }")
+    within "#item-#{@rim.id}" do
+      expect(page).to have_link("Fulfil")
+      click_on "Fulfil"
     end
-  end
-
-  it "I can click a link to view my own items and I am taken to that page" do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
-
-    visit '/merchant'
-
-    click_on 'Merchant Items'
-
-    expect(current_path).to eql('/merchant/items')
-  end
-
-  it "I can click a link to view my own items and I am taken to that page" do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
-
-    visit '/merchant'
-
-    click_on 'Merchant Items'
-
-    expect(current_path).to eql('/merchant/items')
+    expect(page).to have_content("#{@rim.name} inventory has been subtract to fulfil the order.")
+    expect(@rim.inventory).to eq(11)
+    expect(@order2.status).to eq("Fulfilled")
   end
 end
-
-# As a merchant employee
-# When I visit my merchant dashboard
-# I see a link to view my own items
-# When I click that link
-# My URI route should be "/merchant/items"
