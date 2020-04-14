@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'As a merchant user on the merchant dashboard page', type: :feature do
+RSpec.describe 'As a merchant employee', type: :feature do
   before(:each) do
     @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 23137)
     @merchant_user = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 2)
@@ -18,50 +18,68 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
     @order2 = @user.orders.create(id: 5, name: "Colin", address: "400 Wash", city: "Denver", state: "CO", zip: 80203)
     @order2.item_orders.create(order_id: @order2.id, item: @rim, quantity: 1, price: @tire.price)
     @bike_shop.add_employee(@merchant_user)
-
-  end
-  it "I see the name and full address of the merchant I am associated with" do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
-
-    visit "/merchant"
-
-    within '.merchant-info' do
-      expect(page).to have_content(@bike_shop.name)
-      expect(page).to have_content(@bike_shop.address)
-      expect(page).to have_content(@bike_shop.city)
-      expect(page).to have_content(@bike_shop.state)
-      expect(page).to have_content(@bike_shop.zip)
-    end
   end
 
-  it "I see a list of any pending orders for items I sell, each order with an id, date made, total qty and grandtotal" do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
+  describe "When I visit my merchants items page" do
+    it "I can click on the edit button or link next to any item listed, I am taken to an edit page" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
 
-    visit '/merchant'
+      visit '/merchant/items'
 
-    within '.merchant-orders' do
-      within "#order-#{@order1.id}" do
-        expect(page).to have_content(@order1.id)
-        expect(page).to have_content(@order1.created_at)
-        expect(page).to have_content("Merchant Items Quantity: 3")
-        expect(page).to have_content("Merchant Items Cost: $300.00")
+      within "#item-#{@tire.id}" do
+        click_on 'Edit Item'
       end
-      within "#order-#{@order2.id}" do
-        expect(page).to have_content(@order2.id)
-        expect(page).to have_content(@order2.created_at)
-        expect(page).to have_content("Merchant Items Quantity: 1")
-        expect(page).to have_content("Merchant Items Cost: $100.00")
+
+      expect(current_path).to eql("/merchant/items/#{@tire.id}/edit")
+    end
+
+    it "I can click a link to see an item edit form that is pre-populated with the items current info" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
+
+      visit "/merchant/items/#{@tire.id}/edit"
+
+      within "#item-#{@tire.id}" do
+        expect(@tire.name)
       end
     end
-  end
 
-  it "I can click a link to view my own items and I am taken to that page" do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
+    it "I can not update name/description as blank, price > $0.00 and inventory > 0" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
+      name = "TireNewName"
+      visit "/merchant/items/#{@tire.id}/edit"
 
-    visit '/merchant'
+      fill_in 'Name', with: name
 
-    click_on 'Merchant Items'
+      click_on 'Submit'
 
-    expect(current_path).to eql('/merchant/items')
+      expect(page).to have_content("Item Succesfully Updated")
+    end
+
+    it "When I fill out the form correctly and click submit, I redirect to merchant items and see a flash message and new information" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
+      name = ""
+
+      visit "/merchant/items/#{@tire.id}/edit"
+
+      fill_in 'Name', with: name
+
+      click_on 'Submit'
+
+      expect(page).to have_content("Incorrectly filled out name, try again.")
+    end
+
+    it "If I fill out an image field blank, I see a default photo in place after submitting the form" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
+
+      image = ""
+
+      visit "/merchant/items/#{@tire.id}/edit"
+
+      fill_in 'Image', with: image
+
+      click_on 'Submit'
+
+      expect(current_path).to eql("/merchant/items")
+    end
   end
 end

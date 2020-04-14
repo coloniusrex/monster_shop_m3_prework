@@ -10,10 +10,11 @@
       <%= image_tag(item.image) %>
       <li>Active?: <%= item.status %></li>
       <li>Inventory: <%= item.inventory %></li>
+      <%= link_to "Edit Item", "/merchant/items/#{item.id}/edit", method: :get %>
       <% if item.status == true %>
-        <%= link_to "Deactivate Item", "/merchant/items/#{item.id}", method: :patch %>
+        <%= link_to "Deactivate Item", "/merchant/items/#{item.id}", method: :put %>
       <% else %>
-        <%= link_to "Activate Item", "/merchant/items/#{item.id}", method: :patch %>
+        <%= link_to "Activate Item", "/merchant/items/#{item.id}", method: :put %>
       <% end  %>
 
       <% if item.no_orders? %>
