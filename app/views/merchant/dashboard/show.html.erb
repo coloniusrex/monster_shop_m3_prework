@@ -1,18 +1,18 @@
-<h1>Welcome</h1>
+<h1>Merchant Dashboard</h1>
 <section class='merchant-info'>
-<h3><%= @merchant.name %></h3>
-<p><%= @merchant.address %></p>
-<p><%= @merchant.city %></p>
-<p><%= @merchant.state %></p>
-<p><%= @merchant.zip %></p>
+<h2><%= @merchant.name %></h2>
+<%= @merchant.address %>,
+<%= @merchant.city %>,
+<%= @merchant.state %>
+<%= @merchant.zip %><br><br>
 </section>
-<section class='merchant-orders'>
+<section class='merchant-orders grid-container'>
   <% @merchant.orders.distinct.each do |order| %>
-    <section id='order-<%= order.id %>'>
-      <p>Order ID: <%= order.id %></p>
-      <p>Created: <%= order.created_at %></p>
-      <p>Merchant Items Quantity: <%= order.merchant_total_items(@merchant) %></p>
-      <p>Merchant Items Cost: <%= number_to_currency(order.merchant_total_cost(@merchant)) %></p>
+    <section id='order-<%= order.id %>' class="grid-item">
+      <ul>Order ID: <%= link_to order.id, "/merchant/orders/#{order.id}" %></ul>
+      <ul>Created: <%= order.created_at %></ul>
+      <ul>Merchant Items Quantity: <%= order.merchant_total_items(@merchant) %></ul>
+      <ul>Merchant Items Cost: <%= number_to_currency(order.merchant_total_cost(@merchant)) %></ul>
     </section>
   <% end %>
 </section>

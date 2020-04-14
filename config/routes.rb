@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     patch "items/:id", to: "items#update_active"
     get "/items/add-item", to: "items#new"
     post "/items", to: "items#add_item"
+    get "/orders/:id", to: "orders#show"
     resources :items, only: [:destroy]
   end
 

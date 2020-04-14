@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
   def new
-
     if current_user.role == 1
       flash[:notice] = "You're already logged in."
       redirect_to '/profile'
