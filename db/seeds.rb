@@ -47,6 +47,7 @@ merchant_3 = User.create(name: "Employee(Karen)", address: "123 Test St", city: 
 merchant_4 = User.create(name: "Employee(Jenn)", address: "123 Test St", city: "Tampa Bay", state: "FL", zip: "80204", email: "merchant3@example.com", password: "password_merchant", role: 2)
 
 #employees
+bike_shop.add_employee(merchant)
 bike_shop.add_employee(merchant_1)
 dog_shop.add_employee(merchant_2)
 misc_shop.add_employee(merchant_3)
