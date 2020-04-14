@@ -65,9 +65,3 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
     expect(current_path).to eql('/merchant/items')
   end
 end
-
-# As a merchant employee
-# When I visit my merchant dashboard
-# I see a link to view my own items
-# When I click that link
-# My URI route should be "/merchant/items"
