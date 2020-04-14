@@ -41,10 +41,10 @@ merchant = User.create(name: "Merchant", address: "123 Test St", city: "Houston"
 admin = User.create(name: "Admin(Kevin)", address: "123 Test St", city: "Fable", state: "WA", zip: "80204", email: "admin@example.com", password: "password_admin", role: 3)
 admin_2 = User.create(name: "Admin(Louis)", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "admin2@example.com", password: "password_admin", role: 3)
 
-merchant_1 = User.create(name: "Employee(Billy)", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "merchant1@example.com", password: "password_merchant", role: 2)
-merchant_2 = User.create(name: "Employee(Johnny)", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "merchant2@example.com", password: "password_merchant", role: 2)
-merchant_3 = User.create(name: "Employee(Karen)", address: "123 Test St", city: "Hollywood", state: "CA", zip: "80204", email: "merchant3@example.com", password: "password_merchant", role: 2)
-merchant_4 = User.create(name: "Employee(Jenn)", address: "123 Test St", city: "Tampa Bay", state: "FL", zip: "80204", email: "merchant3@example.com", password: "password_merchant", role: 2)
+merchant_1 = User.create(name: "Employee(Billy)", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "merchant1@example.com", password: "password_merchant1", role: 2)
+merchant_2 = User.create(name: "Employee(Johnny)", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "merchant2@example.com", password: "password_merchant2", role: 2)
+merchant_3 = User.create(name: "Employee(Karen)", address: "123 Test St", city: "Hollywood", state: "CA", zip: "80204", email: "merchant3@example.com", password: "password_merchant3", role: 2)
+merchant_4 = User.create(name: "Employee(Jenn)", address: "123 Test St", city: "Tampa Bay", state: "FL", zip: "80204", email: "merchant4@example.com", password: "password_merchant4", role: 2)
 
 #employees
 bike_shop.add_employee(merchant)
