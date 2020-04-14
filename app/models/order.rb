@@ -41,7 +41,6 @@ class Order <ApplicationRecord
   def merchant_specific_items(current_user)
     merchant_items = Merchant.find(current_user[:merchant_id]).items
     item_orders.where(item_id: merchant_items)
-
   end
 
 end

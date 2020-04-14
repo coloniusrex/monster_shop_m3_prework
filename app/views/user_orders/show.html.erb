@@ -64,3 +64,6 @@
 <% if @order.status == "Pending" || @order.status == "Packaged" %>
   <%= link_to "Cancel Order", "/profile/orders/#{@order.id}/cancel", method: :patch %>
 <%end%>
+<center>
+  <br><%= link_to "Go Back", request.referer %>
+</center>

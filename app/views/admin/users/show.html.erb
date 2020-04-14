@@ -1,6 +1,6 @@
 <br><section id="profile" class="grid-item">
   <h2>User Info</h2>
-  Username: <%=@user.name %><br>
+  Name: <%=@user.name %><br>
   Address: <%=@user.address %>,
   <%=@user.city %>,
   <%=@user.state %>
@@ -8,5 +8,5 @@
   Email: <%=@user.email %><br>
 </section><br>
 <div align="center">
-  <%= link_to "Go Back", :back %>
+  <%= link_to "Go Back", request.referer %>
 </div>

@@ -7,14 +7,17 @@
 <ul><%= link_to "Delete Merchant", "/merchants/#{@merchant.id}", method: :delete  if @merchant.no_orders?%>
 </ul>
 <section class = "merchant-stats">
-  <h2>Number of Items: <%=@merchant.item_count%></h2>
+  <h3>Number of Items: <%=@merchant.item_count%></h3>
   <% if @merchant.item_count > 0 %>
-    <h2>Average Price of Items: <%=number_to_currency( @merchant.average_item_price)%></h2>
+    <h3>Average Price of Items: <%=number_to_currency( @merchant.average_item_price)%></h3>
     <section class = "distinct-cities">
-      <h2>Cities that order these items:</h2>
+      <h3>Cities that order these items:</h3>
       <% @merchant.distinct_cities.each do |city| %>
-        <p><%= city %></p>
+        <li><%= city %></p>
       <% end %>
     <% end %>
   </section>
 </section>
+<center>
+  <br><%= link_to "Go Back", request.referer %>
+</center>

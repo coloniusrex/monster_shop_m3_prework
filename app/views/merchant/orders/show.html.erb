@@ -10,12 +10,15 @@
       Price: <%= number_to_currency(item_order.price) %><br>
       Quantity: <%= item_order.quantity %><br>
       <article id="item-<%=item_order.item.id%>">
-        <% if item_order.item.can_be_fulfilled(@order.amount_wanted(item_order.item.id)) == true %>
-          <ul><%= link_to "Fulfil", "/merchant/#{@order.id}/#{item_order.item.id}", method: :patch%>
+        <% if item_order.item.can_be_fulfilled(@order.amount_wanted(item_order.item.id)) == false %>
+          <ul> Item does not have enough in stock to fulfill order. </ul>
+        <% elsif item_order.item.can_be_fulfilled(@order.amount_wanted(item_order.item.id)) == true && item_order.status == "Unfulfilled" %>
+          <ul><%= link_to "Fulfill", "/merchant/#{@order.id}/#{item_order.item.id}", method: :patch%>
         <% else %>
-          <p> Item does not have enough in stock to fulfil order. </p>
+          <p> This item has already been fulfilled. </p>
         <% end %>
       </article>
     <% end  %>
   </section>
 </section>
+<center><%= link_to "Go Back", request.referer %></center>
