@@ -16,11 +16,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_merchant?
-    current_user && (current_user.role == 2)
+    current_user && current_user.merchant?
   end
 
   def current_admin?
-    current_user && (current_user.role == 3)
+    current_user && current_user.admin?
   end
 
 end

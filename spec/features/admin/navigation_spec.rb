@@ -19,15 +19,20 @@ RSpec.describe 'Site Navigation' do
       end
     end
 
-    it "404 errors when accessing cart/merchant" do
+    it "404 errors when accessing cart" do
+      admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit "/cart"
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
+
+    it "404 errors when accessing merchant paths" do
       admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
       visit "/merchant"
-
-      expect(page).to have_content("The page you were looking for doesn't exist.")
-
-      visit "/cart"
 
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end

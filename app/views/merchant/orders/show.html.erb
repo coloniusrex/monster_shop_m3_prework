@@ -1,0 +1,13 @@
+<h2>Order Number (#<%= @order.id %>)</h2>
+<section class="grid-container">
+  <section class="grid-item">
+    <%= "Recipient: #{@order.name}" %><br>
+    <%= "Address: #{@order.address}, #{@order.city}, #{@order.state} #{@order.zip}" %><br>
+    <% @order.merchant_specific_items(current_user).each do |item_order| %>
+      <%= image_tag item_order.item.image %><br>
+      Product: <%= link_to item_order.item.name, "/items/#{item_order.item.id}" %><br>
+      Price: <%= number_to_currency(item_order.price) %><br>
+      Quantity: <%= item_order.quantity %><br>
+    <% end  %>
+  </section>
+</section>

@@ -1,5 +1,5 @@
 class CartController < ApplicationController
-  before_action :check_role
+  before_action :current_user_admin?
 
   def add_item
     item = Item.find(params[:item_id])
@@ -34,7 +34,7 @@ class CartController < ApplicationController
 
   private
 
-  def check_role
-    render file: "/public/404" unless current_user.role < 3
+  def current_user_admin?
+    render file: "/public/404" if current_user.admin?
   end
 end

@@ -1,6 +1,4 @@
-<h1 align = "center">My Profile</h1>
-
-<section id="profile" class="grid-item">
+<br><section id="profile" class="grid-item">
   <h2>User Info</h2>
   Username: <%=@user.name %><br>
   Address: <%=@user.address %>,
@@ -9,3 +7,6 @@
   <%=@user.zip %><br>
   Email: <%=@user.email %><br>
 </section><br>
+<div align="center">
+  <%= link_to "Go Back", :back %>
+</div>
