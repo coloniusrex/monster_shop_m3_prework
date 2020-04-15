@@ -1,6 +1,5 @@
-<h2>All Users</h2>
+<h1>All Users</h1>
 <section class="users-list">
-
   <% @users.each do |user| %>
     <section id="user-<%= user.id %>">
       <%= link_to user.name, "/admin/users/#{user.id}" %> -
@@ -9,3 +8,4 @@
     </section>
     <% end %>
 </section>
+<br><%= link_to "Go Back", request.referer %>

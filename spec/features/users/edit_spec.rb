@@ -72,4 +72,16 @@ describe "all users" do
 
     expect(page).to have_content("That email is already in use.")
   end
+
+  it "requires all fields to be filled out" do
+    user_1 = User.create(name: "Bobby", address: "456 Test Ave", city: "Castle Rock", state: "CO", zip: "80104", email: "123@example.com", password: "password", role: 1)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
+
+    visit "/profile"
+    click_link("Update Information")
+    fill_in :name, with: ""
+    click_on "Save Information"
+
+    expect(page).to have_content("Name can't be blank")
+  end
 end

@@ -1,7 +1,5 @@
 class Merchant::OrdersController < Merchant::BaseController
 
-
-
   def update
     item = Item.find(params[:item_id])
     order = Order.find(params[:order_id])
@@ -11,7 +9,7 @@ class Merchant::OrdersController < Merchant::BaseController
     item_order[0].update_attributes(:status => "Fulfilled", quantity: 0)
     item_order[0].save
     if item.save
-      flash[:notice] = "#{item.name} inventory has been subtract to fulfil the order."
+      flash[:notice] = "#{item.name} inventory has been subtract to fulfill the order."
       redirect_to "/merchant/orders/#{order.id}"
     end
   end

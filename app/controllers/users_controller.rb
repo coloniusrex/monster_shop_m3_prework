@@ -5,9 +5,13 @@ class UsersController < ApplicationController
 
   def update
     if !existing_email?
-      if current_user.update(user_params)
+      current_user.update(user_params)
+      if current_user.save
         flash[:notice] = "Your information has successfully been updated."
         redirect_to "/profile"
+      else
+        flash[:error] = current_user.errors.full_messages.to_sentence
+        render :edit
       end
     else
       flash[:error] = "That email is already in use."
@@ -26,7 +30,7 @@ class UsersController < ApplicationController
         flash[:error] = 'Your password is blank.'
         render :password
       elsif user.save
-        flash[:notice] = 'Your password has been updated.'
+        flash[:success] = 'Your password has been updated.'
         redirect_to '/profile'
       end
     else
@@ -44,5 +48,4 @@ class UsersController < ApplicationController
   def user_params
     params.permit(:name, :address, :city, :state, :zip, :email)
   end
-
 end

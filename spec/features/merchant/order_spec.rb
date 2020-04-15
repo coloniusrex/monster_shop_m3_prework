@@ -39,10 +39,10 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
     expect(@order2.status).to eq("Pending")
 
     within "#item-#{@rim.id}" do
-      expect(page).to have_link("Fulfil")
-      click_on "Fulfil"
+      expect(page).to have_link("Fulfill")
+      click_on "Fulfill"
     end
-    expect(page).to have_content("#{@rim.name} inventory has been subtract to fulfil the order.")
+    expect(page).to have_content("#{@rim.name} inventory has been subtract to fulfill the order.")
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
@@ -61,7 +61,7 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
     end
   end
 
-    it "I can  not click a link to fulfil an order" do
+    it "I can  not click a link to fulfill an order" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
 
       visit '/merchant'
@@ -74,8 +74,8 @@ RSpec.describe 'As a merchant user on the merchant dashboard page', type: :featu
       expect(current_path).to eql("/merchant/orders/#{@order1.id }")
 
       within "#item-#{@rim.id}" do
-        expect(page).to_not have_link("Fulfil")
-        expect(page).to have_content("Item does not have enough in stock to fulfil order.")
+        expect(page).to_not have_link("Fulfill")
+        expect(page).to have_content("Item does not have enough in stock to fulfill order.")
       end
     end
 end
