@@ -10,7 +10,7 @@ class Item <ApplicationRecord
                         :image,
                         :inventory
   validates_numericality_of :price, greater_than: 0
-
+  validates :image, :format => URI::regexp(%w(http https))
 
   def average_review
     reviews.average(:rating)
