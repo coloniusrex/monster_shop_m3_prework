@@ -38,9 +38,15 @@ RSpec.describe 'As a merchant employee', type: :feature do
 
       visit "/merchant/items/#{@tire.id}/edit"
 
-      within "#item-#{@tire.id}" do
-        expect(@tire.name)
+      within "#edit_item_#{@tire.id}" do
+        expect(find_field('Name').value).to eq("#{@tire.name}")
+        expect(find_field('Description').value).to eq("#{@tire.description}")
+        expect(find_field('Price').value).to eq("#{@tire.price}")
+        expect(find_field('Image').value).to eq("#{@tire.image}")
+        expect(find_field('Inventory').value).to eq("#{@tire.inventory}")
       end
+
+
     end
 
     it "I can not update name/description as blank, price > $0.00 and inventory > 0" do

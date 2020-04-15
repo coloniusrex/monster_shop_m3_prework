@@ -59,7 +59,7 @@ class Merchant::ItemsController < Merchant::BaseController
 
   def item_params
     params[:image] = "https://www.thesun.co.uk/wp-content/uploads/2018/11/cat-2.png" unless params[:image] != ""
-    params.permit(:name,:description,:price,:inventory,:image)
+    params.require(:item).permit(:name,:description,:price,:inventory,:image)
   end
 
 end
