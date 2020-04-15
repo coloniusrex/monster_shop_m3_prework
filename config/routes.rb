@@ -86,6 +86,8 @@ Rails.application.routes.draw do
     patch '/merchants/:merchant_id/items/:id', to: 'merchant_items#update'
     delete '/merchants/:merchant_id/items/:id', to: 'merchant_items#destroy'
     put '/merchants/:merchant_id/items/:id', to: 'merchant_items#update_active'
+    get '/merchants/:merchant_id/orders/:id', to: 'merchant_orders#show'
+    patch '/merchants/:merchant_id/orders/:order_id/:item_id', to: 'merchant_orders#update'
   end
 
   get "/logout", to: "sessions#logout"

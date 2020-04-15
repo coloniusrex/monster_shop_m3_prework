@@ -37,7 +37,7 @@ kong_toy = dog_shop.items.create(name: "Kong Toy", description: "They paid us to
 
 #users
 user = User.create(name: "User(Colin)", address: "123 Test St", city: "New York", state: "NY", zip: "80204", email: "user@example.com", password: "user", role: 1)
-user = User.create(name: "User(David)", address: "523 Test St", city: "Colorado Springs", state: "CO", zip: "80020", email: "user1@example.com", password: "user", role: 1)
+user_2 = User.create(name: "User(David)", address: "523 Test St", city: "Colorado Springs", state: "CO", zip: "80020", email: "user1@example.com", password: "user", role: 1)
 merchant = User.create(name: "Merchant(Max)", address: "123 Test St", city: "Houston", state: "TX", zip: "80204", email: "merchant@example.com", password: "merchant", role: 2)
 admin = User.create(name: "Admin(Kevin)", address: "123 Test St", city: "Fable", state: "WA", zip: "80204", email: "admin@example.com", password: "admin", role: 3)
 admin_2 = User.create(name: "Admin(Louis)", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "admin2@example.com", password: "admin", role: 3)

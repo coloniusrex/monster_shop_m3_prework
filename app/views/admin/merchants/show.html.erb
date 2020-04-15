@@ -1,11 +1,23 @@
 <h1><%= link_to @merchant.name, "admin/merchants/#{@merchant.id}" %></h1>
-<p class="address"><%= @merchant.address %></p>
-<p class="address"><%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></p>
-
+<ul class="address"><%= @merchant.address %></ul>
+<ul class="address"><%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></ul>
 <ul><%= link_to "All #{@merchant.name} Items", "/admin/merchants/#{@merchant.id}/items" %></ul>
 <ul><%= link_to "Update Merchant", "/admin/merchants/#{@merchant.id}/edit" %></ul>
 <ul><%= link_to "Delete Merchant", "/admin/merchants/#{@merchant.id}", method: :delete  if @merchant.no_orders?%>
 </ul>
+<center><h2>Merchant Orders</h2></center>
+<section class='merchant-orders grid-container'>
+  <% @merchant.orders.distinct.each do |order| %>
+    <section id='order-<%= order.id %>' class="grid-item">
+      <ul>Order ID: <%= link_to order.id, "/admin/merchants/#{@merchant.id}/orders/#{order.id}" %></ul>
+      <ul>Order Status: <%= order.status %></ul>
+      <ul>Created: <%= order.created_at %></ul>
+      <ul>Merchant Items Quantity: <%= order.merchant_total_items(@merchant) %></ul>
+      <ul>Merchant Items Cost: <%= number_to_currency(order.merchant_total_cost(@merchant)) %></ul>
+    </section>
+  <% end %>
+</section>
+
 <section class = "merchant-stats">
   <h3>Number of Items: <%=@merchant.item_count%></h3>
   <% if @merchant.item_count > 0 %>
