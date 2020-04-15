@@ -72,8 +72,20 @@ Rails.application.routes.draw do
     get '/users/:id', to: 'users#show'
     patch '/:id', to: 'merchants#update'
     get '/merchants', to: "merchants#index"
+    get '/merchants/new', to: 'merchants#new'
+    post '/merchants/', to: 'merchants#create'
     patch '/merchants/:id', to: 'merchants#status'
     get '/merchants/:id', to: 'merchants#show'
+    get '/merchants/:id/items', to: 'merchant_items#index'
+    get '/merchants/:id/edit', to: 'merchants#edit'
+    put '/merchants/:id/', to: 'merchants#update_merchant'
+    delete '/merchants/:id', to: 'merchants#destroy'
+    get '/merchants/:id/items/add-item', to: 'merchant_items#new'
+    post '/merchants/:id/items', to: 'merchant_items#create'
+    get '/merchants/:merchant_id/items/:id/edit', to: 'merchant_items#edit'
+    patch '/merchants/:merchant_id/items/:id', to: 'merchant_items#update'
+    delete '/merchants/:merchant_id/items/:id', to: 'merchant_items#destroy'
+    put '/merchants/:merchant_id/items/:id', to: 'merchant_items#update_active'
   end
 
   get "/logout", to: "sessions#logout"
