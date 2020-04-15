@@ -1,0 +1,26 @@
+<h1><%= @merchant.name %>'s Items</h1>
+
+<center><%= link_to "Create Item", "/admin/merchants/#{@merchant.id}/items/add-item" %></center><br><br>
+<section class="items-list grid-container">
+  <% @merchant.items.each do |item| %>
+    <section id="item-<%= item.id %>" class="grid-item">
+      <li>Name: <%= item.name %></li>
+      <li>Description: <%= item.description %></li>
+      <li>Price: $<%= item.price %></li>
+      <%= image_tag(item.image) %>
+      <li>Active?: <%= item.status %></li>
+      <li>Inventory: <%= item.inventory %></li>
+      <%= link_to "Edit Item", "/admin/merchants/#{@merchant.id}/items/#{item.id}/edit", method: :get %><br>
+      <% if item.status == true %>
+        <%= link_to "Deactivate Item", "/admin/merchants/#{@merchant.id}/items/#{item.id}", method: :put %>
+      <% else %>
+        <%= link_to "Activate Item", "/admin/merchants/#{@merchant.id}/items/#{item.id}", method: :put %>
+      <% end  %><br>
+
+      <% if item.no_orders? %>
+        <%= link_to "Delete Item", "/admin/merchants/#{@merchant.id}/items/#{item.id}", method: :delete %>
+      <% end  %>
+    </section>
+  <% end  %>
+</section>
+<center><br><%= link_to "Go Back", request.referer %></center>

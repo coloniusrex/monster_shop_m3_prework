@@ -1,11 +1,12 @@
 <h1>Admin's merchants index </h1>
+<center><%= link_to "Create Merchant", "/admin/merchants/new" %></center><br>
 <% @merchants.each do |merchant| %>
 <article id="merchant-<%= merchant.id %>">
   Merchant Name: <%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%> -
   Address: <%= merchant.address %>,
   <%= merchant.city %>,
   <%= merchant.state %>
-  <%= merchant.zip %> - 
+  <%= merchant.zip %> -
   <% if merchant.status == true %>
     <%= link_to "Disable", "/admin/merchants/#{merchant.id}", method: :patch%>
   <% else %>

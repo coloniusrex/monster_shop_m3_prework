@@ -3,7 +3,7 @@
   <section class="grid-item">
     <%= "Recipient: #{@order.name}" %><br>
     <%= "Address: #{@order.address}, #{@order.city}, #{@order.state} #{@order.zip}" %><br>
-    <% @order.merchant_specific_items(current_user).each do |item_order| %>
+    <% @order.merchant_specific_items(@merchant).each do |item_order| %>
       <%= image_tag item_order.item.image %><br>
       Product: <%= link_to item_order.item.name, "/items/#{item_order.item.id}" %><br>
       Price: <%= number_to_currency(item_order.price) %><br>
@@ -12,7 +12,7 @@
         <% if item_order.item.can_be_fulfilled(@order.amount_wanted(item_order.item.id)) == false %>
           <ul> Item does not have enough in stock to fulfill order. </ul>
         <% elsif item_order.item.can_be_fulfilled(@order.amount_wanted(item_order.item.id)) == true && item_order.status == "Unfulfilled" %>
-          <ul><%= link_to "Fulfill", "/merchant/#{@order.id}/#{item_order.item.id}", method: :patch%>
+          <ul><%= link_to "Fulfill", "/admin/merchants/#{@merchant.id}/orders/#{@order.id}/#{item_order.item.id}", method: :patch%>
         <% else %>
           <p> This item has already been fulfilled. </p>
         <% end %>
