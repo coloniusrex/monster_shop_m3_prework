@@ -135,5 +135,62 @@ RSpec.describe 'Admin merchants index' do
       visit "/items/#{@paper.id}"
       expect(page).to have_content("Active")
     end
+
+    it "can delete a merchant" do
+      admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit "/admin/merchants/#{@mike.id}"
+
+      click_on("Delete Merchant")
+
+      expect(current_path).to eq("/admin/merchants")
+      expect(page).to have_content("Successfully deleted #{@mike.name}")
+    end
+
+    it "can update a merchant" do
+      admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit "/admin/merchants/#{@mike.id}"
+      click_on("Update Merchant")
+      fill_in :name, with: ""
+      click_on "Update Merchant"
+
+      expect(page).to have_content("Unable to update merchant; Name can't be blank.")
+
+      fill_in :name, with: "Test"
+      click_on("Update Merchant")
+
+      expect(current_path).to eq("/admin/merchants/#{@mike.id}")
+      expect(page).to have_content("Merchant has successfully been updated.")
+      expect(page).to have_no_content("Mike's Print Shop")
+      expect(page).to have_content("Test")
+    end
+
+    it "can create a merchant" do
+      admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit "/admin/merchants"
+      click_on("Create Merchant")
+      fill_in :name, with: ""
+      fill_in :address, with: "Test"
+      fill_in :city, with: "Test"
+      fill_in :state, with: "Test"
+      fill_in :zip, with: "Test"
+      click_on("Create Merchant")
+
+      expect(page).to have_content("Unable to create merchant; Name can't be blank")
+      fill_in :name, with: "Test"
+      fill_in :address, with: "Test"
+      fill_in :city, with: "Test"
+      fill_in :state, with: "Test"
+      fill_in :zip, with: "Test"
+      click_on("Create Merchant")
+
+      expect(current_path).to eq("/admin/merchants")
+      expect(page).to have_content("Test was successfully created.")
+    end
   end
 end
