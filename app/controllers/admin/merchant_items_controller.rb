@@ -42,7 +42,6 @@ class Admin::MerchantItemsController < Admin::BaseController
   def update_active
     @merchant = Merchant.find(params[:merchant_id])
     item = Item.find(params[:id])
-    require "pry"; binding.pry
     if item.status == true
       item.update(status: false)
       flash[:success] = "#{item.name} is no longer for sale."

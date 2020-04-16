@@ -95,8 +95,10 @@ describe "as an admin visiting merchants/:id/items" do
 
     within "#item-#{paper.id}" do
       expect(page).to have_content("Active?: true")
+      expect(page).to have_link("Deactivate Item")
       click_on("Deactivate Item")
       expect(page).to have_content("Active?: false")
+      expect(page).to have_link("Activate Item")
       click_on("Activate Item")
       expect(page).to have_content("Active?: true")
     end

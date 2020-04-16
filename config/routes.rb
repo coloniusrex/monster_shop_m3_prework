@@ -58,12 +58,13 @@ Rails.application.routes.draw do
   patch "/profile/orders/:order_id/cancel", to: "user_orders#cancel"
 
   namespace :merchant do
+    put "items/:id", to: "items#update_active"
+    patch "items/:id", to: "items#update"
     resources :items, only: [:index, :edit, :new, :create, :destroy]
     get '/', to: "dashboard#show"
     # get "/items", to: "items#index"
     # get 'items/:id/edit', to: "items#edit"
-    put "items/:id", to: "items#update_active"
-    patch "items/:id", to: "items#update"
+
     # get "/items/new", to: "items#new"
     # post "/items", to: "items#create"
     patch '/:order_id/:item_id', to: "orders#update"
@@ -77,10 +78,7 @@ Rails.application.routes.draw do
     # get "/users", to: "users#index"
     # get '/users/:id', to: 'users#show'
     patch '/:id', to: 'merchants#update'
-    resources :merchants, only: [:index, :new, :create, :destroy, :show, :edit] do
-      resources :merchant_orders, only: [:show]
-      resources :merchant_items, except: [:show]
-    end
+
     # get '/merchants', to: "merchants#index"
     # get '/merchants/new', to: 'merchants#new'
     # post '/merchants/', to: 'merchants#create'
@@ -93,11 +91,15 @@ Rails.application.routes.draw do
     get '/merchants/:id/merchant_items/add-item', to: 'merchant_items#new'
     # post '/merchants/:id/items', to: 'merchant_items#create'
     # get '/merchants/:merchant_id/items/:id/edit', to: 'merchant_items#edit'
-    # patch '/merchants/:merchant_id/items/:id', to: 'merchant_items#update'
+    put '/merchants/:merchant_id/merchant_items/:id', to: 'merchant_items#update'
     # delete '/merchants/:merchant_id/items/:id', to: 'merchant_items#destroy'
-    put '/merchants/:merchant_id/merchant_items/:id', to: 'merchant_items#update_active'
+    patch '/merchants/:merchant_id/merchant_items/:id', to: 'merchant_items#update_active'
     # get '/merchants/:merchant_id/orders/:id', to: 'merchant_orders#show'
     patch '/merchants/:merchant_id/merchant_orders/:order_id/:item_id', to: 'merchant_orders#update'
+    resources :merchants, only: [:index, :new, :create, :destroy, :show, :edit] do
+      resources :merchant_orders, only: [:show]
+      resources :merchant_items, except: [:show, :update]
+    end
   end
 
   get "/logout", to: "sessions#logout"

@@ -12,9 +12,9 @@
       <li>Inventory: <%= item.inventory %></li>
       <%= link_to "Edit Item", "/admin/merchants/#{@merchant.id}/merchant_items/#{item.id}/edit", method: :get %><br>
       <% if item.status == true %>
-        <%= link_to "Deactivate Item", "/admin/merchants/#{@merchant.id}/merchant_items/#{item.id}", method: :put %>
+        <%= link_to "Deactivate Item", "/admin/merchants/#{@merchant.id}/merchant_items/#{item.id}", method: :patch %>
       <% else %>
-        <%= link_to "Activate Item", "/admin/merchants/#{@merchant.id}/merchant_items/#{item.id}", method: :put %>
+        <%= link_to "Activate Item", "/admin/merchants/#{@merchant.id}/merchant_items/#{item.id}", method: :patch %>
       <% end  %><br>
 
       <% if item.no_orders? %>
