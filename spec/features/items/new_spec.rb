@@ -58,7 +58,7 @@ RSpec.describe "Create Merchant Items" do
       price = 18
       description = "No more chaffin'!"
       image_url = "https://images-na.ssl-images-amazon.com/images/I/51HMpDXItgL._SX569_.jpg"
-      inventory = ""
+      inventory = "0"
 
       click_on "Add New Item"
 
@@ -70,7 +70,7 @@ RSpec.describe "Create Merchant Items" do
 
       click_button "Create Item"
 
-      expect(page).to have_content("Name can't be blank and Inventory can't be blank")
+      expect(page).to have_content("Name can't be blank")
       expect(page).to have_button("Create Item")
     end
   end

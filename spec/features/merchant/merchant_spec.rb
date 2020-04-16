@@ -38,21 +38,35 @@ RSpec.describe 'As a merchant employee', type: :feature do
 
       visit "/merchant/items/#{@tire.id}/edit"
 
-      within "#item-#{@tire.id}" do
-        expect(@tire.name)
+      within "#edit_item_#{@tire.id}" do
+        expect(find_field('Name').value).to eq("#{@tire.name}")
+        expect(find_field('Description').value).to eq("#{@tire.description}")
+        expect(find_field('Price').value).to eq("#{@tire.price}")
+        expect(find_field('Image').value).to eq("#{@tire.image}")
+        expect(find_field('Inventory').value).to eq("#{@tire.inventory}")
       end
+
+
     end
 
     it "I can not update name/description as blank, price > $0.00 and inventory > 0" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
-      name = "TireNewName"
+
       visit "/merchant/items/#{@tire.id}/edit"
 
-      fill_in 'Name', with: name
-
+      fill_in 'Name', with: "New Name"
+      fill_in 'Description', with: "New tire description"
+      fill_in 'Price', with: 0
+      fill_in 'Inventory', with: 10
       click_on 'Submit'
 
-      expect(page).to have_content("Item Succesfully Updated")
+      expect(page).to have_content("Price must be greater than 0, try again.")
+
+      fill_in 'Price', with: 20
+      fill_in 'Inventory', with: 0
+      click_on 'Submit'
+
+      expect(page).to have_content("Inventory must be greater than 0, try again.")
     end
 
     it "When I fill out the form correctly and click submit, I redirect to merchant items and see a flash message and new information" do
@@ -65,21 +79,18 @@ RSpec.describe 'As a merchant employee', type: :feature do
 
       click_on 'Submit'
 
-      expect(page).to have_content("Incorrectly filled out name, try again.")
+      expect(page).to have_content("Name can't be blank, try again.")
     end
 
     it "If I fill out an image field blank, I see a default photo in place after submitting the form" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
 
-      image = ""
-
       visit "/merchant/items/#{@tire.id}/edit"
 
-      fill_in 'Image', with: image
-
+      fill_in 'Image', with: ""
       click_on 'Submit'
 
-      expect(current_path).to eql("/merchant/items")
+      expect(page).to have_css("img[src*='https://dapp.dblog.org/img/default.jpg']")
     end
   end
 end

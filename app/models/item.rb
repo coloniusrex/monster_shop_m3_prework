@@ -7,9 +7,9 @@ class Item <ApplicationRecord
   validates_presence_of :name,
                         :description,
                         :price,
-                        :image,
                         :inventory
   validates_numericality_of :price, greater_than: 0
+  validates_numericality_of :inventory, greater_than: 0, on: :item_inventory
 
 
   def average_review
@@ -34,5 +34,10 @@ class Item <ApplicationRecord
 
   def can_be_fulfilled(amount_wanted)
     amount_wanted < inventory
+  end
+
+  def default_photo?
+    self.image = "https://dapp.dblog.org/img/default.jpg" if self.image == ""
+    self.errors.add(:inventory, "Inventory must be greater than 0,") if self.inventory < 1
   end
 end

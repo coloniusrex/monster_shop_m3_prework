@@ -1,21 +1,20 @@
 <center>
-  <%= form_tag path, method: method do %>
-    <%= label_tag :name %>
-    <%= text_field_tag :name, item[:name] %>
+  <%= form_for [:merchant, item], :url => path, :method => method do |form| %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
 
-    <%= label_tag :description %>
-    <%= text_field_tag :description, item[:description] %>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
 
-    <%= label_tag :price %>
-    <%= text_field_tag :price, item[:price] %>
+    <%= form.label :price %>
+    <%= form.text_field :price %>
 
-    <%= label_tag :image %>
-    <%= text_field_tag :image, item[:image] %>
+    <%= form.label :image %>
+    <%= form.text_field :image %>
 
-    <%= label_tag :inventory %>
-    <%= text_field_tag :inventory, item[:inventory] %>
+    <%= form.label :inventory %>
+    <%= form.text_field :inventory %>
 
-    <%= submit_tag button_name %>
+    <%= form.submit button_name %>
   <% end %>
-  <br><%= link_to "Go Back", request.referer %>
 </center>
