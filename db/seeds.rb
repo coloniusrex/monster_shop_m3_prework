@@ -69,7 +69,7 @@ order2 = user.orders.create(id: 4, name: "David", address: "2931 Carrier St", ci
 order2.item_orders.create(order_id: order2.id, item: pull_toy, quantity: 1, price: pull_toy.price)
 order2.item_orders.create(order_id: order2.id, item: dog_bone, quantity: 2, price: dog_bone.price)
 order2.item_orders.create(order_id: order2.id, item: rim, quantity: 4, price: rim.price)
-order2.item_orders.create(order_id: order2.id, item: axel, quantity: 5, price: axel.price)
+order2.item_orders.create(order_id: order2.id, item: axle, quantity: 5, price: axle.price)
 
 order3 = merchant_1.orders.create(id: 5, name: "Max", address: "123 Martin", city: "Colorado Springs", state: "CO", zip: 80203, status: "Packaged")
 
