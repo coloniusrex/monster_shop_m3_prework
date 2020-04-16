@@ -10,7 +10,7 @@ class Admin::MerchantOrdersController < Admin::BaseController
     item_order[0].save
     if item.save
       flash[:notice] = "#{item.name} inventory has been subtract to fulfill the order."
-      redirect_to "/admin/merchants/#{merchant.id}/orders/#{order.id}"
+      redirect_to "/admin/merchants/#{merchant.id}/merchant_orders/#{order.id}"
     end
   end
 

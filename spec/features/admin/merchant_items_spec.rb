@@ -9,7 +9,7 @@ describe "as an admin visiting merchants/:id/items" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
-    visit "/admin/merchants/#{mike.id}/items"
+    visit "/admin/merchants/#{mike.id}/merchant_items"
 
     click_link("Create Item")
 
@@ -28,7 +28,7 @@ describe "as an admin visiting merchants/:id/items" do
     fill_in :inventory, with: 10
     click_on "Create Item"
 
-    expect(current_path).to eq("/admin/merchants/#{mike.id}/items")
+    expect(current_path).to eq("/admin/merchants/#{mike.id}/merchant_items")
     within(".items-list") do
       expect(page).to have_content(paper.name)
       expect(page).to have_content(pencil.name)
@@ -44,7 +44,7 @@ describe "as an admin visiting merchants/:id/items" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
-    visit "/admin/merchants/#{mike.id}/items"
+    visit "/admin/merchants/#{mike.id}/merchant_items"
 
     within "#item-#{paper.id}" do
       click_on("Edit Item")
@@ -70,7 +70,7 @@ describe "as an admin visiting merchants/:id/items" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
-    visit "/admin/merchants/#{mike.id}/items"
+    visit "/admin/merchants/#{mike.id}/merchant_items"
     expect(page).to have_content(paper.name)
 
     within "#item-#{paper.id}" do
@@ -90,14 +90,15 @@ describe "as an admin visiting merchants/:id/items" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
-    visit "/admin/merchants/#{mike.id}/items"
+    visit "/admin/merchants/#{mike.id}/merchant_items"
     expect(page).to have_content(paper.name)
 
     within "#item-#{paper.id}" do
-      expect(page).to have_no_content("Activate Item")
+      expect(page).to have_content("Active?: true")
       click_on("Deactivate Item")
+      expect(page).to have_content("Active?: false")
       click_on("Activate Item")
-      expect(page).to have_content("Deactivate Item")
+      expect(page).to have_content("Active?: true")
     end
   end
 end
