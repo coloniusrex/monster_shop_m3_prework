@@ -10,9 +10,9 @@ describe "merchant item index" do
   it "can add items with proper fields" do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_1)
 
-    visit merchant_items_path
+    visit "/merchant/items"
     click_link("Add Item")
-    expect(current_path).to eq("/merchant/items/add-item")
+    expect(current_path).to eq("/merchant/items/new")
 
     name = "Test Item"
     fill_in :name, with: name
@@ -33,7 +33,7 @@ describe "merchant item index" do
 
   it "can't add items without proper fields" do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_1)
-    visit merchant_items_path
+    visit "/merchant/items"
     click_link("Add Item")
 
     fill_in :description, with: "Test Description"
