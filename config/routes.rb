@@ -68,26 +68,31 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: "dashboard#show"
-    get "/users", to: "users#index"
-    get '/users/:id', to: 'users#show'
+    resources :users, only: [:index, :show]
+    # get "/users", to: "users#index"
+    # get '/users/:id', to: 'users#show'
     patch '/:id', to: 'merchants#update'
-    get '/merchants', to: "merchants#index"
-    get '/merchants/new', to: 'merchants#new'
-    post '/merchants/', to: 'merchants#create'
+    resources :merchants, only: [:index, :new, :create, :destroy, :show, :edit] do
+      resources :merchant_orders, only: [:show]
+      resources :merchant_items, except: [:show]
+    end
+    # get '/merchants', to: "merchants#index"
+    # get '/merchants/new', to: 'merchants#new'
+    # post '/merchants/', to: 'merchants#create'
     patch '/merchants/:id', to: 'merchants#status'
-    get '/merchants/:id', to: 'merchants#show'
+    # get '/merchants/:id', to: 'merchants#show'
     get '/merchants/:id/items', to: 'merchant_items#index'
-    get '/merchants/:id/edit', to: 'merchants#edit'
+    # get '/merchants/:id/edit', to: 'merchants#edit'
     put '/merchants/:id/', to: 'merchants#update_merchant'
-    delete '/merchants/:id', to: 'merchants#destroy'
-    get '/merchants/:id/items/add-item', to: 'merchant_items#new'
-    post '/merchants/:id/items', to: 'merchant_items#create'
-    get '/merchants/:merchant_id/items/:id/edit', to: 'merchant_items#edit'
-    patch '/merchants/:merchant_id/items/:id', to: 'merchant_items#update'
-    delete '/merchants/:merchant_id/items/:id', to: 'merchant_items#destroy'
-    put '/merchants/:merchant_id/items/:id', to: 'merchant_items#update_active'
-    get '/merchants/:merchant_id/orders/:id', to: 'merchant_orders#show'
-    patch '/merchants/:merchant_id/orders/:order_id/:item_id', to: 'merchant_orders#update'
+    # delete '/merchants/:id', to: 'merchants#destroy'
+    get '/merchants/:id/merchant_items/add-item', to: 'merchant_items#new'
+    # post '/merchants/:id/items', to: 'merchant_items#create'
+    # get '/merchants/:merchant_id/items/:id/edit', to: 'merchant_items#edit'
+    # patch '/merchants/:merchant_id/items/:id', to: 'merchant_items#update'
+    # delete '/merchants/:merchant_id/items/:id', to: 'merchant_items#destroy'
+    put '/merchants/:merchant_id/merchant_items/:id', to: 'merchant_items#update_active'
+    # get '/merchants/:merchant_id/orders/:id', to: 'merchant_orders#show'
+    patch '/merchants/:merchant_id/merchant_orders/:order_id/:item_id', to: 'merchant_orders#update'
   end
 
   get "/logout", to: "sessions#logout"
