@@ -6,6 +6,7 @@ RSpec.describe 'Site Navigation' do
     @visitor = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 0)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@visitor)
   end
+  
   describe 'As a Visitor' do
     it "I see a nav bar with links to all pages" do
       visit '/merchants'
