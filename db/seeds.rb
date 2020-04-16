@@ -52,7 +52,7 @@ bike_shop.add_employee(merchant)
 bike_shop.add_employee(merchant_1)
 dog_shop.add_employee(merchant_2)
 misc_shop.add_employee(merchant_3)
-tire_shop.add_employee(merchant_4)
+tires_shop.add_employee(merchant_4)
 
 #orders
 order1 = user.orders.create(id: 3, name: "Colin", address: "400 Wash", city: "Denver", state: "CO", zip: 80203)
