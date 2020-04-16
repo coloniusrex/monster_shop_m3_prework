@@ -26,7 +26,7 @@ class Merchant::ItemsController < Merchant::BaseController
     end
   end
 
-  def add_item
+  def create
     @merchant = Merchant.find(current_user[:merchant_id])
     @item = @merchant.items.new(item_params)
     @item.default_photo?

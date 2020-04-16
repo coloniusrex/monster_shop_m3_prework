@@ -62,6 +62,7 @@ describe Order, type: :model do
     it "#merchant_specific_items - returns only items that merchant sells in order" do
       expect(@order_1.item_orders).to eq([@item_order_1, @item_order_2])
       expect(@order_1.merchant_specific_items(@merchant_user)).to eq([@item_order_1])
+      expect(@order_1.merchant_specific_items(@meg)).to eq([@item_order_1])
     end
   end
 end

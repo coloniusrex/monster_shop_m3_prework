@@ -9,7 +9,7 @@
 <section class='merchant-orders grid-container'>
   <% @merchant.orders.distinct.each do |order| %>
     <section id='order-<%= order.id %>' class="grid-item">
-      <ul>Order ID: <%= link_to order.id, "/admin/merchants/#{@merchant.id}/orders/#{order.id}" %></ul>
+      <ul>Order ID: <%= link_to order.id, "/admin/merchants/#{@merchant.id}/merchant_orders/#{order.id}" %></ul>
       <ul>Order Status: <%= order.status %></ul>
       <ul>Created: <%= order.created_at %></ul>
       <ul>Merchant Items Quantity: <%= order.merchant_total_items(@merchant) %></ul>

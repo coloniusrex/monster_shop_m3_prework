@@ -204,11 +204,11 @@ RSpec.describe 'Admin merchants index' do
       admin = User.create(name: "David", address: "123 Test St", city: "Denver", state: "CO", zip: "80204", email: "123@example.com", password: "password", role: 3)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
-      visit "/admin/merchants/#{dog_shop.id}/orders/#{order1.id}"
+      visit "/admin/merchants/#{dog_shop.id}/merchant_orders/#{order1.id}"
       within("#item-#{item_order_1.item.id}") do
         click_on "Fulfill"
       end
-      expect(current_path).to eq("/admin/merchants/#{dog_shop.id}/orders/#{order1.id}")
+      expect(current_path).to eq("/admin/merchants/#{dog_shop.id}/merchant_orders/#{order1.id}")
     end
   end
 end
