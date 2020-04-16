@@ -85,5 +85,15 @@ describe Item, type: :model do
 
       expect(Item.least_popular.to_a).to eql([pull_toy, dog_bone, tire, rim, chew_rope])
     end
+
+    it "sets a default photo value if there is none" do
+      bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "", inventory: 12)
+      rim = bike_shop.items.create(name: "Shiny Wheel", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+
+      tire.default_photo?
+      expect(tire.image). to eql("https://dapp.dblog.org/img/default.jpg")
+      expect(rim.image).to eql(rim.image)
+    end
   end
 end
