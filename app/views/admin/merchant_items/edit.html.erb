@@ -1,6 +1,6 @@
 <h1>Update Item Info</h1>
 <center>
-  <%= form_tag "/merchant/items/#{@item.id}", id:"item-#{@item.id}", method: :patch  do %>
+  <%= form_tag "/admin/merchants/#{@merchant.id}/items/#{@item.id}", method: :patch do %>
     <%= label_tag :name %>
     <%= text_field_tag :name, "#{@item.name}"%>
 
@@ -16,7 +16,7 @@
     <%= label_tag :image %>
     <%= text_field_tag :image, "#{@item.image}" %>
 
-    <%= submit_tag 'Submit' %>
+    <%= submit_tag 'Save Item' %>
   <% end %>
   <br><%= link_to "Go Back", request.referer %>
 </center>

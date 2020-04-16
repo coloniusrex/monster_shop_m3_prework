@@ -15,7 +15,7 @@ class RegisterController < ApplicationController
       render :new
     elsif params[:confirm_pass] == params[:password] && @user.save
       session[:user_id] = @user.id
-      flash[:notice] = "Your account has been created."
+      flash[:success] = "Your account has been created."
       redirect_to "/profile"
     else
       flash[:error] = "Unable to create account: Required information missing."

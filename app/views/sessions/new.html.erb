@@ -1,13 +1,14 @@
 <h1>Log-In Page</h1>
+<center>
+  <%= form_tag '/login', method: :post do %>
 
-<%= form_tag '/login', method: :post do %>
+    <%= label_tag :email %>
+    <%= text_field_tag :email %>
 
-  <%= label_tag :email %>
-  <%= text_field_tag :email %>
+    <%= label_tag :password %>
+    <%= password_field_tag :password %>
 
-  <%= label_tag :password %>
-  <%= text_field_tag :password %>
-
-
-  <%= submit_tag 'Login' %>
-<% end %>
+    <%= submit_tag 'Login' %>
+  <% end %>
+  <br><%= link_to "Go Back", request.referer %>
+</center>

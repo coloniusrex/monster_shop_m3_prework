@@ -1,4 +1,5 @@
 class UserOrdersController < ApplicationController
+
   def index
   end
 
@@ -13,10 +14,9 @@ class UserOrdersController < ApplicationController
         item_order.update(status: "Unfulfilled")
         item_order.save
       end
-      flash[:notice] = "Your order has been canceled."
+      flash[:success] = "Your order has been canceled."
       redirect_to "/profile"
     end
-
   end
 
   def show
@@ -35,10 +35,10 @@ class UserOrdersController < ApplicationController
           })
       end
       session.delete(:cart)
-      flash[:notice] = "Order Succesfully Created"
+      flash[:success] = "Order Succesfully Created"
       redirect_to "/profile/orders"
     else
-      flash[:notice] = "Please complete address form to create an order."
+      flash[:success] = "Please complete address form to create an order."
       render :new
     end
   end

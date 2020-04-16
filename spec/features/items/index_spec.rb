@@ -147,19 +147,18 @@ RSpec.describe "Items Index Page" do
       item_order10 = ItemOrder.create(order_id: order1.id, item: seat, quantity: 10, price: seat.price)
 
       visit '/items'
-
       within('.statistics') do
         within('#most-popular') do
-          expect("#{seat.name}: #{item_order10.quantity}").to appear_before("#{axle.name}: #{item_order9.quantity}")
-          expect("#{axle.name}: #{item_order9.quantity}").to appear_before("#{tire_parts.name}: #{item_order8.quantity}")
-          expect("#{tire_parts.name}: #{item_order8.quantity}").to appear_before("#{kong_toy.name}: #{item_order7.quantity}")
-          expect("#{kong_toy.name}: #{item_order7.quantity}").to appear_before("#{squeaky_toy.name}: #{item_order6.quantity}")
+          expect(seat.name).to appear_before(axle.name)
+          expect(axle.name).to appear_before(tire_parts.name)
+          expect(tire_parts.name).to appear_before(kong_toy.name)
+          expect(kong_toy.name).to appear_before(squeaky_toy.name)
         end
         within('#least-popular') do
-          expect("#{pull_toy.name}: #{item_order1.quantity}").to appear_before("#{dog_bone.name}: #{item_order2.quantity}")
-          expect("#{dog_bone.name}: #{item_order2.quantity}").to appear_before("#{tire.name}: #{item_order3.quantity}")
-          expect("#{tire.name}: #{item_order3.quantity}").to appear_before("#{rim.name}: #{item_order4.quantity}")
-          expect("#{rim.name}: #{item_order4.quantity}").to appear_before("#{chew_rope.name}: #{item_order5.quantity}")
+          expect(pull_toy.name).to appear_before(dog_bone.name)
+          expect(dog_bone.name).to appear_before(tire.name)
+          expect(tire.name).to appear_before(rim.name)
+          expect(rim.name).to appear_before(chew_rope.name)
         end
       end
     end

@@ -1,16 +1,16 @@
 class SessionsController < ApplicationController
+
   def new
     if current_user.basic?
-      flash[:notice] = "You're already logged in."
+      flash[:success] = "You're already logged in."
       redirect_to '/profile'
     elsif current_user.merchant?
-      flash[:notice] = "You're already logged in."
+      flash[:success] = "You're already logged in."
       redirect_to '/merchant'
     elsif current_user.admin?
-      flash[:notice] = "You're already logged in."
+      flash[:success] = "You're already logged in."
       redirect_to '/admin'
     end
-
   end
 
   def create
@@ -27,16 +27,14 @@ class SessionsController < ApplicationController
         redirect_to '/admin'
       end
     else
-      flash[:notice] = "Your credentials are incorrect."
+      flash[:error] = "Your credentials are incorrect."
       render :new
     end
-
   end
 
   def logout
     session.clear
-    flash[:notice] = "You're logged out."
+    flash[:success] = "You're logged out."
     redirect_to '/'
   end
-
 end

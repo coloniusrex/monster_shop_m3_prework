@@ -16,14 +16,25 @@ describe "admin's 'All Users' page" do
     click_on("All Users")
     expect(current_path).to eq("/admin/users")
 
-    expect(page).to have_link(@user_1.name)
-    expect(page).to have_link(@user_2.name)
-    expect(page).to have_link(@merchant_1.name)
-    expect(page).to have_link(@admin_1.name)
-    expect(page).to have_link(@admin_2.name)
-    expect(page).to have_content("admin")
-    expect(page).to have_content("merchant")
-    expect(page).to have_content("basic")
+    within(".users-list") do
+      within("#user-#{@user_1.id}") do
+        expect(page).to have_link(@user_1.name)
+        expect(page).to have_content("basic")
+      end
+
+      within("#user-#{@merchant_1.id}") do
+        expect(page).to have_link(@merchant_1.name)
+        expect(page).to have_content("merchant")
+      end
+
+      within("#user-#{@admin_1.id}") do
+        expect(page).to have_link(@admin_1.name)
+        expect(page).to have_content("admin")
+      end
+      
+      expect(page).to have_link(@admin_2.name)
+      expect(page).to have_link(@user_2.name)
+    end
 
     within(".users-list") do
       within("#user-#{@user_1.id}") do
