@@ -4,4 +4,4 @@
 <%= render partial: 'form', locals: { path: merchant_items_path,
                                       method: :post,
                                       button_name: "Add Item",
-                                      item: Item.new() } %>
+                                      item: @item ||= @merchant.items.new() } %>
